@@ -7,6 +7,7 @@
 
 # Run `config_mac`
 echo "Configuring macOS..."
+zsh scripts/config_macos.sh
 
 # Install or update Homebrew
 
@@ -15,5 +16,12 @@ echo "Configuring macOS..."
 # Install Homebrew packages
 
 # Install Homebrew Casks
+
+# Set apps that start on login (Login Items)
+#TODO:
+
+# Set default web browser
+
+
 
 # Erase defined functions

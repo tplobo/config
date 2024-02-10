@@ -1,3 +1,8 @@
+# Enable Apps from... (only App Store, Identified Developers, Anywhere)
+#sudo spctl --enable
+#sudo spctl --master-enable
+sudo spctl --master-disable
+
 # Enable the WebKit Developer Tools in the Mac App Store
 #defaults write com.apple.appstore WebKitDeveloperExtras -bool true
 

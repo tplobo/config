@@ -1,10 +1,21 @@
+###############################################################################
+# Screen saver                                                                #
+###############################################################################
+
 # Time to start screen saver (in seconds, 0=disabled)
 # See: https://discussions.apple.com/thread/251362856
 defaults write com.apple.screensaver idleTime 60
 
+# Define screensaver style (Origami, KenBurns, ...)
+defaults -currentHost write com.apple.ScreenSaver.iLifeSlideShows styleKey -string KenBurns
+
 # Require password after sleep or screen saver begins (delay in seconds)
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 300
+
+###############################################################################
+# Screenshots                                                                 #
+###############################################################################
 
 # Save screenshots to the desktop
 defaults write com.apple.screencapture location -string "${HOME}/Desktop"
@@ -14,6 +25,10 @@ defaults write com.apple.screencapture type -string "png"
 
 # Disable shadow in screenshots
 #defaults write com.apple.screencapture disable-shadow -bool true
+
+###############################################################################
+# Displays                                                                    #
+###############################################################################
 
 # Enable subpixel font rendering on non-Apple LCDs
 # Reference: https://github.com/kevinSuttle/macOS-Defaults/issues/17#issuecomment-266633501

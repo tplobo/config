@@ -3,9 +3,13 @@ Repository to store configuration files for my computers.
 
 ![Screenshot of my shell prompt](images/sorry.jpg)
 
-## Studies strategies
+## Studied strategies
 
+General:
 - [shell scriptting](https://gist.github.com/mrichman/f5c0c6f0c0873392c719265dfd209e12)
+- [macOS settings](https://github.com/tiiiecherle/osx_install_config)
+
+Set config:
 - [copying](https://github.com/mathiasbynens/dotfiles)
 - [Symlinks](https://www.youtube.com/watch?v=r_MpUP6aKiQ)
 - [Bare git](https://www.atlassian.com/git/tutorials/dotfiles)

@@ -36,22 +36,28 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # Set wallpaper & screensaver                                         		  #
 ###############################################################################
 
+mxf_path=~/Pictures/images/'Morgoth X Fingolfin.jpg'
+maps_path=~/Pictures/'02 Arda Maps'
+
 # Copy images to Pictures
-cp -f images/morgoth_X_fingolfin.jpg ~/Pictures/images/'Morgoth X Fingolfin.jpg'
+cp -f images/morgoth_X_fingolfin.jpg $mxf_path
 cp -f images/morgoth_X_fingolfin_reduced.jpg ~/Pictures/images/'Morgoth X Fingolfin (reduced).jpg'
 
 # Copy folders to Pictures
+
 cp -f -R images/eu ~/Pictures/'01 Eu'
-cp -f -R images/arda_maps ~/Pictures/'02 Arda Maps'
+cp -f -R images/arda_maps $maps_path
 
 # Define function to set wallpaper
 # TODO:
 #function wallpaper () {
 #    automator -i "${1}" ~/Desktop/setDesktopPix.workflow
 #    }
+#wallpaper mxf_path
 
-# Define function to set screensaver
-# TODO:
+# Set screensaver source folder
+defaults -currentHost write com.apple.ScreenSaverPhotoChooser 'SelectedFolderPath' $maps_path
+
 
 ###############################################################################
 # Configurations                                                              #
@@ -64,6 +70,9 @@ function apply_macos_config () {
 
 # UI/UX  
 apply_macos_config ui.sh
+
+# Language & Region
+apply_macos_config language_region.sh
 
 # Hardware (trackpad, mouse, keyboard, Bluetooth accessories and others)
 apply_macos_config hardware.sh

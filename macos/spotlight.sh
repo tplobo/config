@@ -1,5 +1,6 @@
 # Hide Spotlight tray-icon (and subsequent helper)
 #sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
+/usr/libexec/PlistBuddy ~/Library/Preferences/ByHost/com.apple.Spotlight."$uuid1".plist -c 'Delete MenuItemHidden bool true' >/dev/null 2>&1
 
 # Disable Spotlight indexing for any volume that gets mounted and has not yet
 # been indexed before.

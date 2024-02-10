@@ -1,27 +1,17 @@
 # Disable the sound effects on boot
 sudo nvram SystemAudioVolume=" "
 
-# Disable transparency in the menu bar and elsewhere on Yosemite
-#defaults write com.apple.universalaccess reduceTransparency -bool true
-
 # Set highlight color to green
 #defaults write NSGlobalDomain AppleHighlightColor -string "0.764700 0.976500 0.568600"
 
 # Set sidebar icon size to medium
 defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 2
 
-# Always show scrollbars (`WhenScrolling`, `Automatic` and `Always`)
-defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
-
 # Disable the over-the-top focus ring animation
 defaults write NSGlobalDomain NSUseAnimatedFocusRing -bool false
 
 # Adjust toolbar title rollover delay
 defaults write NSGlobalDomain NSToolbarTitleViewRolloverDelay -float 0
-
-# Disable smooth scrolling
-# (Uncomment if you’re on an older Mac that messes up the animation)
-#defaults write NSGlobalDomain NSScrollAnimationEnabled -bool false
 
 # Increase window resize speed for Cocoa applications (default is 0.2)
 #defaults delete NSGlobalDomain NSWindowResizeTime
@@ -64,14 +54,8 @@ defaults write com.apple.helpviewer DevMode -bool true
 
 # Fix for the ancient UTF-8 bug in QuickLook (https://mths.be/bbo)
 # Commented out, as this is known to cause problems in various Adobe apps :(
-# See https://github.com/mathiasbynens/dotfiles/issues/237
+# See: https://github.com/mathiasbynens/dotfiles/issues/237
 #echo "0x08000100:0" > ~/.CFUserTextEncoding
-
-# Reveal IP address, hostname, OS version, etc. when clicking the clock in the login window
-sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
-
-# Disable Notification Center and remove the menu bar icon
-launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null
 
 # Disable automatic capitalization as it’s annoying when typing code
 defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
@@ -93,3 +77,43 @@ defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 #rm -rf ~/Library/Application Support/Dock/desktoppicture.db
 #sudo rm -rf /System/Library/CoreServices/DefaultDesktop.jpg
 #sudo ln -s /path/to/your/image /System/Library/CoreServices/DefaultDesktop.jpg
+
+###############################################################################
+# Login screen                                                                #
+###############################################################################
+
+# Reveal IP address, hostname, OS version, etc. when clicking the clock in the login screen
+sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
+
+# Set a welcome message on the login screen
+email="tiago_p_lobo@hotmail.com"
+login_msg="This device belongs to Tiago Pomella Lobo. Please contact me: $email"
+sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText $login_msg
+#sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText ""
+
+###############################################################################
+# Menu bar                                                                    #
+###############################################################################
+
+# Disable transparency in the menu bar and elsewhere on Yosemite
+#defaults write com.apple.universalaccess reduceTransparency -bool true
+
+# Disable Notification Center and remove the menu bar icon
+launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null
+
+# Show battery percentage in menu bar
+defaults write com.apple.menuextra.battery ShowPercent -string "YES"
+
+###############################################################################
+# Scrollbars                                                                  #
+###############################################################################
+
+# Always show scrollbars (`WhenScrolling`, `Automatic` and `Always`)
+defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
+
+# Click the scrollbar to jump to spot (false = jump to next page)
+defaults write -g AppleScrollerPagingBehavior -bool true
+
+# Disable smooth scrolling
+# (Uncomment if you’re on an older Mac that messes up the animation)
+#defaults write NSGlobalDomain NSScrollAnimationEnabled -bool false
