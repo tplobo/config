@@ -1,0 +1,19 @@
+[user]
+	name = Tiago Pomella Lobo
+	email = tiago_p_lobo@hotmail.com
+	signingkey = ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDXB9y/H5TYzBHtuKXjfG2oZjOKGDfS8ec/MEPMVLI7eAR8N0ARSqa5qSO8ZK6uZyqObtWG6ogfxRvycgrhrTIOtstH12HpTZ+mCos24aZtuBAJGQLqMBkigEoAT9WWJgcS/L2hIE/2KOsNNCm433yp/2EsRNJ2OxCqKFFgCN6Jim8pY8ItTb5lnL7Hxg4LCArheDKyqwCPhKdf1jLAkrbw/2FTZl0WgVVqJagcCabJMXiQYgxCVqdXsmDjauznoHB7qQS0/l2MJ2+LlhU9hrJwQAN6B2mHYZdVgKc802irIeUiJbPCS/ZYYbsD1YtZc9mGbT5+HicwIgAkq6DKIBzNDlQx8/XraQwKKYj1RCGnSjvRIoZfF38arxoIZ8fym/7sn6N577wzaUEtNq/H7pMGZL+pRx1Z0Rd+ReSFUNUBdEFhG+Yi2BYuolZ69PAPR/LrjEjjJd45YXF9fZSXbVLGJCgMVGosrAfGYBg0Fc+fgqs1chpJ20W/iFVePFEhULE=
+[core]
+	excludesfile = /Users/tiago/.gitignore_global
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[commit]
+	template = /Users/tiago/.stCommitMsg
+	gpgsign = true
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
