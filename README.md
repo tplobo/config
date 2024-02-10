@@ -1,4 +1,40 @@
-# Mathias’s dotfiles
+# tplobo’s computer config files
+Repository to store configuration files for my computers.
+
+## Studies strategies
+
+- [copying](https://github.com/mathiasbynens/dotfiles)
+- [Symlinks](https://www.youtube.com/watch?v=r_MpUP6aKiQ)
+- [Bare git](https://www.atlassian.com/git/tutorials/dotfiles)
+- [Ansible](https://www.youtube.com/watch?v=hPPIScBt4Gw)
+
+## Bootstrap computer ()
+
+1) I Xcode with command line tools: `xcode-select --install`.
+2) Do that
+3) Run `zsh config_bootstrap.sh`. (turn into alias)
+
+10) Apply config
+
+## Apply computer config
+Run `zsh config_apply.sh`. (turn into alias)
+
+## Save computer config
+Run `zsh config_save.sh`. (turn into alias)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ![Screenshot of my shell prompt](https://i.imgur.com/EkEtphC.png)
 
