@@ -10,6 +10,9 @@ sudo -v
 # Keep-alive: update existing `sudo` time stamp until script has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
+# Give permission to edit Library files
+#chmod 700 ~/Library
+
 ###############################################################################
 # Set computer name                                        		  			  #
 ###############################################################################
@@ -36,28 +39,23 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # Set wallpaper & screensaver                                         		  #
 ###############################################################################
 
-mxf_path=~/Pictures/images/'Morgoth X Fingolfin.jpg'
+mxf_path=~/Pictures/'Morgoth X Fingolfin.jpg'
 maps_path=~/Pictures/'02 Arda Maps'
 
 # Copy images to Pictures
 cp -f images/morgoth_X_fingolfin.jpg $mxf_path
-cp -f images/morgoth_X_fingolfin_reduced.jpg ~/Pictures/images/'Morgoth X Fingolfin (reduced).jpg'
+cp -f images/morgoth_X_fingolfin_reduced.jpg ~/Pictures/'Morgoth X Fingolfin (reduced).jpg'
 
 # Copy folders to Pictures
-
 cp -f -R images/eu ~/Pictures/'01 Eu'
 cp -f -R images/arda_maps $maps_path
 
 # Define function to set wallpaper
-# TODO:
-#function wallpaper () {
-#    automator -i "${1}" ~/Desktop/setDesktopPix.workflow
-#    }
-#wallpaper mxf_path
+# See: https://github.com/tiiiecherle/osx_install_config/blob/be085fb76d3544f603b1a1d87e713189bcd8fa9e/11_system_and_app_preferences/11c_macos_preferences_14.sh#L2323
+osascript -e "tell application \"System Events\" to set picture of every desktop to posix file \"$mxf_path\""
 
 # Set screensaver source folder
 defaults -currentHost write com.apple.ScreenSaverPhotoChooser 'SelectedFolderPath' $maps_path
-
 
 ###############################################################################
 # Configurations                                                              #
@@ -65,7 +63,8 @@ defaults -currentHost write com.apple.ScreenSaverPhotoChooser 'SelectedFolderPat
 
 # Define function to run macos config files
 function apply_macos_config () {
-    zsh macos/$1
+	echo "Applying macOS config: "$1
+    sudo zsh macos/$1
     }
 
 # UI/UX  
@@ -75,7 +74,7 @@ apply_macos_config ui.sh
 apply_macos_config language_region.sh
 
 # Hardware (trackpad, mouse, keyboard, Bluetooth accessories and others)
-apply_macos_config hardware.sh
+apply_macos_config hardware.sh #TODO: test zoom after restart
 
 # Energy
 apply_macos_config energy.sh
@@ -90,7 +89,7 @@ apply_macos_config finder.sh
 apply_macos_config desktop.sh
 
 # Safari & WebKit
-apply_macos_config safari.sh
+apply_macos_config safari.sh #TODO: restore session & default save location
 
 # Mail
 apply_macos_config mail.sh

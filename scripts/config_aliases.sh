@@ -31,3 +31,13 @@ alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/La
 # Volume control (http://xkcd.com/530/)
 alias shutup="osascript -e 'set volume output muted true'"
 alias shoutout="osascript -e 'set volume output volume 100'"
+
+# System info for reporting issues
+function sysinfo {
+		    sw_vers;
+		    /Volumes/Macintosh\ HD/usr/sbin/system_profiler SPHardwareDataType;
+		   }
+
+# Reset LaunchPad to default settings
+# See: https://easyosx.net/2022/07/04/how-to-reset-mac-os-launchpad/
+alias resetlaunchpad="defaults write com.apple.dock ResetLaunchPad -bool true && killall Dock"

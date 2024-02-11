@@ -5,7 +5,8 @@ sudo pmset -a lidwake 1
 sudo pmset -a autorestart 1
 
 # Restart automatically if the computer freezes
-sudo systemsetup -setrestartfreeze on
+# Discard outputs to avoid error message: https://github.com/LnL7/nix-darwin/issues/359
+sudo systemsetup -setrestartfreeze on 2>/dev/null 1>&2
 
 # Set display & machine sleep, on battery (in minutes, 0=disabled)
 sudo pmset -b displaysleep 2

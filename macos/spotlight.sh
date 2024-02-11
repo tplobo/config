@@ -2,10 +2,17 @@
 #sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
 /usr/libexec/PlistBuddy ~/Library/Preferences/ByHost/com.apple.Spotlight."$uuid1".plist -c 'Delete MenuItemHidden bool true' >/dev/null 2>&1
 
-# Disable Spotlight indexing for any volume that gets mounted and has not yet
-# been indexed before.
-# Use `sudo mdutil -i off "/Volumes/foo"` to stop indexing any volume.
-sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
+# Disable Spotlight indexing for any volume that gets mounted and has not yet been indexed before (macOS < 14)
+#defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
+
+# Disable Spotlight indexing for any volume that gets mounted and has not yet been indexed before (macOS > 13)
+# See: https://apple.stackexchange.com/questions/87090/how-to-programatically-add-folder-to-spotlight-do-not-index#comment638597_428081
+#sudo /usr/libexec/PlistBuddy -c "Print :Exclusions" /System/Volumes/Data/.Spotlight-V100/VolumeConfiguration.plist
+#sudo /usr/libexec/PlistBuddy -c "Add :Exclusions:0 string '/Volumes'" /System/Volumes/Data/.Spotlight-V100/VolumeConfiguration.plist
+#sudo /usr/libexec/PlistBuddy -c "Delete :Exclusions:0 string" /System/Volumes/Data/.Spotlight-V100/VolumeConfiguration.plist
+
+# Disable Spotlight indexing for volume 'foo'
+#sudo mdutil -i off "/Volumes/foo"`
 
 # Change indexing order and disable some search results
 # Yosemite-specific search results (remove them if you are using macOS 10.9 or older):

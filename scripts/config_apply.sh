@@ -9,13 +9,9 @@
 echo "Configuring macOS..."
 zsh scripts/config_macos.sh
 
-# Install or update Homebrew
+# Create "Clouds" and "Mounts" folders
 
-# Install oh-my-zsh, iTerm and Matrix theme
-
-# Install Homebrew packages
-
-# Install Homebrew Casks
+# Apply Homebrew configuration
 
 # Set apps that start on login (Login Items)
 #TODO:
