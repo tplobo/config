@@ -2,9 +2,7 @@
 
 source "$HOME/.zshrc_config";
 
-source_configs $BREWS_FULL
-
-source_configs $OTHERS
+source_configs $CONFIGS_FULL
 
 ############################# Environment Manager #############################
 

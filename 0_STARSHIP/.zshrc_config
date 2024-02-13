@@ -1,20 +1,19 @@
 function source_configs () {
-    for FILE in $1;
-    do source "$HOME/"$FILE;
+    for FILE in $@; do
+        source "$HOME/"$FILE;
+        #echo $FILE" sourced!";
     done
     }
 
-BREWS_FULL=(
-    .zsh_p10k
-	.zsh_syntax
-)
-
-BREWS_SLIM=(
-    #.zsh_p10k
-	.zsh_syntax
-)
-
-OTHERS=(
+CONFIGS_FULL=(
+    .zsh_p10k       # Homebrew (must be first)
     .zsh_omz
     .zsh_aliases
+	.zsh_syntax     # Homebrew (must be last)
+)
+CONFIGS_SLIM=(
+    #.zsh_p10k
+    .zsh_omz
+    .zsh_aliases
+	.zsh_syntax
 )
