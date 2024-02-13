@@ -1,6 +1,7 @@
 # Install or update Homebrew
 
-# Install oh-my-zsh, iTerm and Matrix theme
+# Tap into fonts cask
+#brew tap homebrew/cask-fonts
 
 # Install Homebrew packages
 

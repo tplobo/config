@@ -1,0 +1,20 @@
+function source_configs () {
+    for FILE in $1;
+    do source "$HOME/"$FILE;
+    done
+    }
+
+BREWS_FULL=(
+    .zsh_p10k
+	.zsh_syntax
+)
+
+BREWS_SLIM=(
+    #.zsh_p10k
+	.zsh_syntax
+)
+
+OTHERS=(
+    .zsh_omz
+    .zsh_aliases
+)
