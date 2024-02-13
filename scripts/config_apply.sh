@@ -23,6 +23,6 @@ zsh scripts/config_macos.sh
 
 # Set default web browser
 
-
+# Copy app folders and files (settings for 1Password, qBittorrent, VSCode, ...)
 
 # Erase defined functions
