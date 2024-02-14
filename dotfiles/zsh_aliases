@@ -44,3 +44,8 @@ function sysinfo {
 # Reset LaunchPad to default settings
 # See: https://easyosx.net/2022/07/04/how-to-reset-mac-os-launchpad/
 alias resetlaunchpad="defaults write com.apple.dock ResetLaunchPad -bool true && killall Dock"
+
+# Homebrew
+alias brew-up='brew update && brew upgrade && brew cleanup'
+alias brew-main='brew leaves && echo "" && printf '%s\n' "${$(brew list --cask)[@]}"'
+alias brew-clean='brew autoremove && brew cleanup'
