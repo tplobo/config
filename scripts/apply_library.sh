@@ -9,7 +9,7 @@ if hash brew &>/dev/null; then
 	brew doctor
 else
 	echo "Installing homebrew..."
-	URL=https://raw.githubusercontent.com/Homebrew/install/master/install
+	URL=https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
     zsh -c "$(curl -fsSL $URL)"
 fi
 
