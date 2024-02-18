@@ -11,17 +11,17 @@ zsh scripts/apply_macos.sh
 
 # Install oh-my-zsh
 if [ -d ~/.oh-my-zsh ]; then
-	echo_ok "OH-MY-ZSH already installed. Getting updates..."
+	echo "OH-MY-ZSH already installed. Getting updates..."
 	omz update
 else
-	echo_warn "Installing OH-MY-ZSH..."
-	OMZ=https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
-    zsh -c "$(curl -fsSL $OMZ)"
+	echo "Installing OH-MY-ZSH..."
+	URL=https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+    zsh -c "$(curl -fsSL $URL)"
 fi
 
 # Apply dotfiles
 echo "Applying dotfiles..."
-apply_items $DOTFILES
+apply_dotfiles $DOTFILES
 
 # Apply apps & packages library
 echo "Applying library..."

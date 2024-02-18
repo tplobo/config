@@ -4,12 +4,13 @@
 # See: https://gist.github.com/mrichman/f5c0c6f0c0873392c719265dfd209e12
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 if hash brew &>/dev/null; then
-	echo_ok "Homebrew already installed. Getting updates..."
+	echo "Homebrew already installed. Getting updates..."
 	brew-up
 	brew doctor
 else
-	echo_warn "Installing homebrew..."
-	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+	echo "Installing homebrew..."
+	URL=https://raw.githubusercontent.com/Homebrew/install/master/install
+    zsh -c "$(curl -fsSL $OMZ)"
 fi
 
 # Add Third-Party Repositories (taps)
