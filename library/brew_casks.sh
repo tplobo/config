@@ -4,7 +4,7 @@ brew install --cask font-meslo-lg-nerd-font       # (for `p10k`)
 
 ################################## Essentials #################################
 
-brew install --cask 1password
+#brew install --cask 1password
 brew install --cask firefox
 brew install --cask vlc
 
@@ -29,8 +29,8 @@ brew install --cask microsoft-teams
 
 brew install --cask adoptopenjdk8                 # Java 8
 brew install --cask macvim
-brew install --cask visual-studio-code
-brew install --cask sourcetree
+#brew install --cask visual-studio-code
+#brew install --cask sourcetree
 
 ########################### File & Drive Management ###########################
 
