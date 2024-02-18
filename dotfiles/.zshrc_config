@@ -6,10 +6,10 @@ function source_configs () {
     }
 
 CONFIGS_FULL=(
-    #.zsh_p10k       # Homebrew (must be first)
+    #.zsh_p10k       # Must be first (Homebrew package)
     #.zsh_omz
     .zsh_aliases
-	#.zsh_syntax     # Homebrew (must be last)
+	#.zsh_syntax     # Must be last (Homebrew package)
 )
 CONFIGS_SLIM=(
     #.zsh_p10k
