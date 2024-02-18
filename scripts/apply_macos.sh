@@ -89,7 +89,7 @@ apply_macos_config finder.sh
 apply_macos_config desktop.sh
 
 # Safari & WebKit
-apply_macos_config safari.sh #TODO: restore session & default save location
+apply_macos_config safari.sh
 
 # Mail
 apply_macos_config mail.sh
@@ -136,4 +136,3 @@ for app in "Activity Monitor" \
 	killall "${app}" &> /dev/null
 done
 echo "Done. Note that some of these changes require a logout/restart to take effect."
-#TODO: echo_green "Done. Note that some of these changes require a logout/restart to take effect."

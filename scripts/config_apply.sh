@@ -1,28 +1,26 @@
+# Source base script
+source config_base.sh
 
-# Define copy function
+# Create folder structure ("Clouds", "Mounts", ...)
 
-# Copy ssh files
+# Apply MacOS configurations
+echo "Applying macOS configurations..."
+zsh scripts/apply_macos.sh
 
-# Copy zsh files
+# Apply dotfiles
+echo "Applying dotfiles..."
+apply_items $DOTFILES
 
-# Run `config_mac`
-echo "Configuring macOS..."
-zsh scripts/config_macos.sh
+# Install oh-my-zsh
 
-# Create "Clouds" and "Mounts" folders
 
-# Install oh-my-zsh, iTerm2
-
-# Apply Homebrew configuration
-
-# Apply configurations based on Homebrew
-# (change terminal default profile to "Homebrew (PowerLevel10k)")
+# Apply apps & packages library
+zsh scripts/apply_library.sh
 
 # Set apps that start on login (Login Items)
-#TODO:
 
 # Set default web browser
 
-# Copy app folders and files (settings for 1Password, qBittorrent, VSCode, ...)
+# Apply settings (copy folders/files for 1Password, qBittorrent, VSCode, ...)
 
 # Erase defined functions

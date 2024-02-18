@@ -1,1 +1,0 @@
-# Copy aliases to home

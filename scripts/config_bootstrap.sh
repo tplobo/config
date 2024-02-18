@@ -2,6 +2,8 @@
 
 # Set password and fingerprints
 
+# Migrate SSH keys
+
 # Give Terminal FullDiskAccess
 
 # Clone or pull from repo

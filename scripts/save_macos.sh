@@ -1,0 +1,1 @@
+# How to save all preferences?
