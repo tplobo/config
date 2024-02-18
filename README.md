@@ -8,12 +8,14 @@ Repository to store configuration files for my computers.
 General:
 - [shell scriptting](https://gist.github.com/mrichman/f5c0c6f0c0873392c719265dfd209e12)
 - [macOS settings](https://github.com/tiiiecherle/osx_install_config)
+- [files saved by `mackup`](https://github.com/lra/mackup)
 
-Set config:
+How to save configs:
 - [copying](https://github.com/mathiasbynens/dotfiles)
 - [Symlinks](https://www.youtube.com/watch?v=r_MpUP6aKiQ)
 - [Bare git](https://www.atlassian.com/git/tutorials/dotfiles)
 - [Ansible](https://www.youtube.com/watch?v=hPPIScBt4Gw)
+
 
 ## Bootstrap computer ()
 
