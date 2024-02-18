@@ -1,12 +1,9 @@
+#################################### Fonts ####################################
 
+################################## Essentials #################################
 
-############################### Developer Tools ###############################
-
-#mas install 497799835          # Xcode (installed manually)
-mas install 1381004916          # Discovery (network Bonjour services)
-
-################################ Communication ################################
-
+mas install 682658836           # GarageBand
+mas install 408981434           # iMovie
 
 ################################# Office Tools ################################
 
@@ -14,7 +11,6 @@ mas install 1381004916          # Discovery (network Bonjour services)
 mas install 409201541           # Pages
 mas install 409183694           # Keynote
 mas install 409203825           # Numbers
-
 
 # Microsoft Office
 mas install 462054704           # Word
@@ -32,6 +28,13 @@ mas install 1444383602          # Goodnotes
 mas install 1483172210          # Free Ruler
 mas install 1497435571          # Simple Comic
 
+################################ Communication ################################
+
+############################### Developer Tools ###############################
+
+#mas install 497799835          # Xcode (installed manually)
+mas install 1381004916          # Discovery (network Bonjour services)
+
 ########################### File & Drive Management ###########################
 
 mas install 593341977           # PDF Attributes
@@ -42,16 +45,18 @@ mas install 1617089333          # AVIF Converter
 mas install 668208984           # GIPHY CAPTURE
 mas install 1477595241          # QrScan
 
-################################## Apple Apps #################################
-
-mas install 682658836           # GarageBand
-mas install 408981434           # iMovie
-
-############################## Remote Connection ##############################
+################################## Networking #################################
 
 mas install 1295203466          # Microsoft Remote Desktop
 mas install 1451685025          # WireGuard
 
+################################### Clouds ####################################
+
+################################## Downloads ##################################
+
+#################################### Games ####################################
+
+################################### Hardware ##################################
 
 
 

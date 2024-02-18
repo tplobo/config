@@ -1,16 +1,20 @@
-
-brew install --cask 1password
-
 #################################### Fonts ####################################
 
 brew install --cask font-meslo-lg-nerd-font       # (for `p10k`)
 
-############################### Developer Tools ###############################
+################################## Essentials #################################
 
-brew install --cask adoptopenjdk8                 # Java 8
-brew install --cask macvim
-brew install --cask visual-studio-code
-brew install --cask sourcetree
+brew install --cask 1password
+brew install --cask firefox
+brew install --cask vlc
+
+################################# Office Tools ################################
+
+################################### Reading ###################################
+
+brew install --cask zotero
+brew install --cask djview
+brew install --cask sequential
 
 ################################ Communication ################################
 
@@ -20,6 +24,13 @@ brew install --cask skype
 brew install --cask zoom
 brew install --cask discord
 brew install --cask microsoft-teams
+
+############################### Developer Tools ###############################
+
+brew install --cask adoptopenjdk8                 # Java 8
+brew install --cask macvim
+#brew install --cask visual-studio-code
+#brew install --cask sourcetree
 
 ########################### File & Drive Management ###########################
 
@@ -35,7 +46,6 @@ brew install --cask --appdir=$MKV mkvtools
 # Converters
 brew install --cask handbrake
 brew install --cask mediahuman-audio-converter
-#TODO: message about 'https://www.mediahuman.com/video-converter/5/'
 
 # File management
 brew install --cask filebot
@@ -49,14 +59,7 @@ MAPS='~/Applications/DiskMapping'
 brew install --cask --appdir=$MAPS disk-inventory-x     # https://www.derlien.com
 brew install --cask --appdir=$MAPS omnidisksweeper      # https://www.omnigroup.com/more/
 
-#TODO: find package to make .ICNS files
-
-################################### Reading ###################################
-
-brew install --cask zotero
-brew install --cask djview
-
-############################## Remote Connection ##############################
+################################## Networking #################################
 
 brew install --cask tunnelblick
 

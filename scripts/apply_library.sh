@@ -35,3 +35,10 @@ mas upgrade
 
 # Apply Mac App Store (depends on `mas` from Homebrew)
 zsh library/mas_apps.sh
+
+############################# Manual Installation #############################
+
+#TODO: message about 'https://www.mediahuman.com/video-converter/5/'
+#TODO: message about 'Synology Active Backup for Business'
+#TODO: find package to make .ICNS files
+#TODO: message about 'ConnectMeNow4'
