@@ -11,6 +11,8 @@ else
 	echo "Installing homebrew..."
 	URL=https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
     /bin/bash -c "$(curl -fsSL $URL)"
+	(echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> /Users/tiago/.zprofile
+    eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
 # Add Third-Party Repositories (taps)
