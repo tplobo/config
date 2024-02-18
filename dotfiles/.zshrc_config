@@ -8,12 +8,14 @@ function source_configs () {
 CONFIGS_FULL=(
     #.zsh_p10k       # Must be first (Homebrew package)
     #.zsh_omz
+    #.zsh_path
     .zsh_aliases
 	#.zsh_syntax     # Must be last (Homebrew package)
 )
 CONFIGS_SLIM=(
     #.zsh_p10k
     #.zsh_omz
+    #.zsh_path
     .zsh_aliases
 	#.zsh_syntax
 )

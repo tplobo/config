@@ -26,6 +26,7 @@ DOTFILES=(
     .zshrc
     .zsh_p10k
     .zsh_omz
+    .zsh_path
     .zsh_aliases
 	.zsh_syntax
 )

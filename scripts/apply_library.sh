@@ -10,7 +10,7 @@ if hash brew &>/dev/null; then
 else
 	echo "Installing homebrew..."
 	URL=https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
-    zsh -c "$(curl -fsSL $URL)"
+    /bin/bash -c "$(curl -fsSL $URL)"
 fi
 
 # Add Third-Party Repositories (taps)
