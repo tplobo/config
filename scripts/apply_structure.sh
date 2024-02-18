@@ -2,6 +2,7 @@
 FOLDERS=(
     '$HOME/☁️ Clouds ☁️'
     '$HOME/⛰️ Mounts ⛰️'
+    '$HOME/Applications/MATLAB'
 )
 apply_folders $FOLDERS
 

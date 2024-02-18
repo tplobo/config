@@ -24,9 +24,9 @@ function save_dotfiles () {
 DOTFILES=(
     .zshrc_config
     .zshrc
-    #.zsh_p10k
-    #.zsh_omz
+    .zsh_p10k
+    .zsh_omz
     .zsh_aliases
-	#.zsh_syntax
+	.zsh_syntax
 )
 

@@ -10,8 +10,14 @@ echo "Applying macOS configurations..."
 zsh scripts/apply_macos.sh
 
 # Install oh-my-zsh
-OMZ=https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
-sh -c "$(curl -fsSL $OMZ)"
+if [ -d ~/.oh-my-zsh ]; then
+	echo_ok "OH-MY-ZSH already installed. Getting updates..."
+	omz update
+else
+	echo_warn "Installing OH-MY-ZSH..."
+	OMZ=https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+    zsh -c "$(curl -fsSL $OMZ)"
+fi
 
 # Apply dotfiles
 echo "Applying dotfiles..."
