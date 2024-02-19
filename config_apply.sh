@@ -1,3 +1,8 @@
+# Ask for the administrator password upfront and keep-alive
+# (update existing `sudo` time stamp until script has finished)
+sudo -v
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
 # Source base script
 source config_base.sh
 
@@ -22,6 +27,7 @@ fi
 # Apply dotfiles
 echo "Applying dotfiles..."
 apply_dotfiles $DOTFILES
+source ~/.zshrc
 
 # Apply apps & packages library
 echo "Applying library..."

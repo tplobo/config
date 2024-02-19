@@ -26,7 +26,7 @@ brew install node               # JavaScript runtime environment
 
 # Builders and compilers
 brew install cmake
-brew install gcc@10
+#brew install gcc@10            # (not compatible with Apple Silicon)
 
 # Others
 brew install pinentry-mac       # PINEntry (package with password dialogs)

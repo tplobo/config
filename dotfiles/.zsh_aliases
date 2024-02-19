@@ -1,7 +1,15 @@
 #!/bin/zsh
 
+################################### System ####################################
+
 # Show all paths
 function path { tr ':' '\n' <<< "$PATH"; }
+
+# System info for reporting issues
+function sysinfo {
+		    sw_vers;
+		    /Volumes/Macintosh\ HD/usr/sbin/system_profiler SPHardwareDataType;
+		   }
 
 # Flush DNS Cache
 function flush {
@@ -19,6 +27,19 @@ function crashreporter_on {
     defaults write com.apple.CrashReporter DialogType -string "developer"
 }
 
+# Clean up LaunchServices to remove duplicates in the “Open With” menu
+alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
+
+# Volume control (http://xkcd.com/530/)
+alias shutup="osascript -e 'set volume output muted true'"
+alias shoutout="osascript -e 'set volume output volume 100'"
+
+# Reset LaunchPad to default settings
+# See: https://easyosx.net/2022/07/04/how-to-reset-mac-os-launchpad/
+alias resetlaunchpad="defaults write com.apple.dock ResetLaunchPad -bool true && killall Dock"
+
+#################################### Echo #####################################
+
 # Config messages
 red='\033[31;1m'
 green='\033[32;1m'
@@ -28,24 +49,18 @@ function echo_red() { echo $red"$1"$reset; }
 function echo_green() { echo $green"$1"$reset; }
 function echo_yellow() { echo $yellow"$1"$reset; }
 
-# Clean up LaunchServices to remove duplicates in the “Open With” menu
-alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
+################################## Homebrew ###################################
 
-# Volume control (http://xkcd.com/530/)
-alias shutup="osascript -e 'set volume output muted true'"
-alias shoutout="osascript -e 'set volume output volume 100'"
-
-# System info for reporting issues
-function sysinfo {
-		    sw_vers;
-		    /Volumes/Macintosh\ HD/usr/sbin/system_profiler SPHardwareDataType;
-		   }
-
-# Reset LaunchPad to default settings
-# See: https://easyosx.net/2022/07/04/how-to-reset-mac-os-launchpad/
-alias resetlaunchpad="defaults write com.apple.dock ResetLaunchPad -bool true && killall Dock"
-
-# Homebrew
+# Updates and cleans
 alias brew-up='brew update && brew upgrade && brew cleanup'
-alias brew-main='brew leaves && echo "" && printf '%s\n' "${$(brew list --cask)[@]}"'
 alias brew-clean='brew autoremove && brew cleanup'
+
+# List all packages & casks
+alias brew-main='brew leaves && echo "" && printf '%s\n' "${$(brew list --cask)[@]}"'
+
+# Remove all packages & casks
+function brew-nuke {
+    brew remove --force $(brew list --formula)
+	brew remove --cask --force $(brew list)
+	brew-clean
+}
