@@ -2,6 +2,9 @@
 
 ################################## Essentials #################################
 
+# Windows environment
+#brew install wine-stable
+
 ################################# Office Tools ################################
 
 ################################### Reading ###################################
@@ -31,6 +34,7 @@ brew install cmake
 # Others
 brew install pinentry-mac       # PINEntry (package with password dialogs)
 brew install open-mpi           # Open Message Passing Interface
+brew install trash              # Command to send items to trash
 
 ########################### File & Drive Management ###########################
 

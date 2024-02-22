@@ -64,3 +64,25 @@ function brew-nuke {
 	brew remove --cask --force $(brew list)
 	brew-clean
 }
+
+################################## App Store ##################################
+# (depends on `mas` & `trash` packages from Homebrew)
+
+# Remove all apps
+function mas-nuke {
+	sudo -v
+	# For each line, extract app path and uninstall it
+	# See: https://gist.github.com/mattmc3/76ad634f362b5a9a54f1779a4737d5ae#file-split-zsh-md
+	while IFS= read -r LINE; do
+		APP_ID=$(echo $LINE | awk '{print $1;}');
+		#sudo mas uninstall $ID; 			# fails, bug in `mas` package
+		APP_DRY=$(mas uninstall $APP_ID --dry-run)
+		APP_DATA=$(echo $APP_DRY | head -n1)
+		APP_PATH=$(echo '/'${APP_DATA#*/})
+		#APP_NAME=$(echo $APP_DATA | cut -d "/" -f 1)
+		echo "Uninstalling" $APP_PATH " ..."
+		sudo chown $(id -un) $APP_PATH 		# change ownership to user
+		trash $APP_PATH
+	done <<< "$(mas list)" # Feed list into loop
+}
+

@@ -5,7 +5,7 @@ echo "Installing Homebrew packages and casks..."
 
 # Install or update Homebrew
 # See: https://gist.github.com/mrichman/f5c0c6f0c0873392c719265dfd209e12
-export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 if hash brew &>/dev/null; then
 	echo "Homebrew already installed. Getting updates..."
 	brew-up
