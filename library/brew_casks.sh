@@ -100,4 +100,5 @@ brew install --cask steam
 
 brew install --cask stats
 brew install --cask logi-options-plus
+brew install --cask ubiquiti-unifi-controller
 brew install --cask jabra-direct

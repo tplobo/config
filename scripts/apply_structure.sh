@@ -29,17 +29,8 @@ SHORTCUTS=(
 )
 IFS=$'\n'; mysides-fill "$SHORTCUTS"; unset IFS
 
-
-
-
-
-
-
-
-#mysides add "${SHORTCUTS[@]}"
-
 ################################## Launchpad ##################################
 
 # Apply Launchpad organization
-#apply_launchpad
+apply_launchpad
 

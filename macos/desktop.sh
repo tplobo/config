@@ -86,7 +86,7 @@ defaults write com.apple.dock expose-group-by-app -bool false
 # Change number of rows & columns in Launchpad
 # See: https://easyosx.net/2022/07/04/how-to-reset-mac-os-launchpad/
 defaults write com.apple.dock springboard-rows -int 5
-defaults write com.apple.dock springboard-columns -int 8
+defaults write com.apple.dock springboard-columns -int 7
 
 # Add iOS & Watch Simulator to Launchpad
 #sudo ln -sf "/Applications/Xcode.app/Contents/Developer/Applications/Simulator.app" "/Applications/Simulator.app"
