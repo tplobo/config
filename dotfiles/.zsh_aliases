@@ -1,9 +1,11 @@
 #!/bin/zsh
-
 ################################### System ####################################
 
 # Show all paths
 function path { tr ':' '\n' <<< "$PATH"; }
+
+# Go to CONFIG project folder
+alias config="cd $HOME//Documents/VSCODE/CONFIG/"
 
 # System info for reporting issues
 function sysinfo {

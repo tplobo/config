@@ -7,6 +7,7 @@ Repository to store configuration files for my computers.
 
 General:
 - [shell scriptting](https://gist.github.com/mrichman/f5c0c6f0c0873392c719265dfd209e12)
+- [aliases in scripts](https://unix.stackexchange.com/questions/1496/why-doesnt-my-bash-script-recognize-aliases)
 - [macOS settings](https://github.com/tiiiecherle/osx_install_config)
 - [files saved by `mackup`](https://github.com/lra/mackup)
 

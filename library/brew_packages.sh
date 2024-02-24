@@ -25,16 +25,20 @@ brew install bfg                # Big Files git repository cleaner
 brew install git-lfs            # Git LFS
 
 # Java
+brew install java
 brew install node               # JavaScript runtime environment
+#brew install openjdk@8
 
 # Builders and compilers
 brew install cmake
 #brew install gcc@10            # (not compatible with Apple Silicon)
 
+# Trash (https://hasseg.org/trash/)
+brew install trash              # Command to send items to trash
+
 # Others
 brew install pinentry-mac       # PINEntry (package with password dialogs)
 brew install open-mpi           # Open Message Passing Interface
-brew install trash              # Command to send items to trash
 
 ########################### File & Drive Management ###########################
 
