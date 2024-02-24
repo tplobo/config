@@ -1,3 +1,6 @@
+# Source base script
+source config_base.sh
+
 ################################### Folders ###################################
 
 # Create folders
@@ -14,18 +17,29 @@ ln -s $ICONS ~/Pictures/'Default MacOS Icons'
 
 ################################### Finder ####################################
 
-# Add Finder sidebar shortcuts (depends on `mysides` package from Homebrew)
-#TODO: remove all current shortcuts
+# Remove all and then add Finder sidebar shortcuts
+# (depends on `mysides` package from Homebrew)
+mysides-nuke
 SHORTCUTS=(
-    "Desktop file://$HOME/Desktop/"
-    "'☁️ Clouds ☁️' file://$HOME/%E2%98%81%EF%B8%8F%20Clouds%20%E2%98%81%EF%B8%8F/"
-    "'⛰️ Mounts ⛰️' file://$HOME/%E2%9B%B0%EF%B8%8F%20Mounts%20%E2%9B%B0%EF%B8%8F/"
+    "☁️ Clouds ☁️ file://$HOME/%E2%98%81%EF%B8%8F%20Clouds%20%E2%98%81%EF%B8%8F/"
+    "⛰️ Mounts ⛰️ file://$HOME/%E2%9B%B0%EF%B8%8F%20Mounts%20%E2%9B%B0%EF%B8%8F/"
     "$(id -un) file://$HOME/"
-    "Applications file://$LIBRARY_PATH"
+    "Desktop file://$HOME/Desktop/"
+    "Applications file:///Applications"
 )
-mysides add ${SHORTCUTS[@]}
+IFS=$'\n'; mysides-fill "$SHORTCUTS"; unset IFS
+
+
+
+
+
+
+
+
+#mysides add "${SHORTCUTS[@]}"
 
 ################################## Launchpad ##################################
 
-
+# Apply Launchpad organization
+#apply_launchpad
 

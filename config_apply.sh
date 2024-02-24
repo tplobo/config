@@ -3,9 +3,6 @@
 sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-# Source base script
-source config_base.sh
-
 # Apply MacOS configurations
 echo "Applying macOS configurations..."
 zsh scripts/apply_macos.sh
@@ -22,8 +19,7 @@ fi
 
 # Apply dotfiles
 echo "Applying dotfiles..."
-apply_dotfiles $DOTFILES
-source ~/.zshrc
+zsh scripts/apply_dotfiles.sh
 
 # Apply apps & packages library
 echo "Applying library..."
@@ -31,7 +27,7 @@ zsh scripts/apply_library.sh
 
 # Create folder structure ("Clouds", "Mounts", ...)
 echo "Creating folder structure..."
-#zsh scripts/apply_structure.sh
+zsh scripts/apply_structure.sh
 
 # Set apps that start on login (Login Items)
 

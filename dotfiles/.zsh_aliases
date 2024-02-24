@@ -1,11 +1,12 @@
 #!/bin/zsh
+
+# Go to CONFIG project folder
+alias config="cd $HOME//Documents/VSCODE/CONFIG/"
+
 ################################### System ####################################
 
 # Show all paths
 function path { tr ':' '\n' <<< "$PATH"; }
-
-# Go to CONFIG project folder
-alias config="cd $HOME//Documents/VSCODE/CONFIG/"
 
 # System info for reporting issues
 function sysinfo {
@@ -19,7 +20,6 @@ function flush {
 		    sudo killall -HUP mDNSResponder;
   		    echo 'DNS Cache successfully flushed!'
 		   }
-
 
 # Enable / Disable Crash Reporter (none|basic|developer|server)
 function crashreporter_off {
@@ -70,7 +70,7 @@ function brew-nuke {
 ################################## App Store ##################################
 # (depends on `mas` & `trash` packages from Homebrew)
 
-# Remove all apps
+# Trash all apps
 function mas-nuke {
 	sudo -v
 	# For each line, extract app path and uninstall it
@@ -87,4 +87,3 @@ function mas-nuke {
 		trash $APP_PATH
 	done <<< "$(mas list)" # Feed list into loop
 }
-
