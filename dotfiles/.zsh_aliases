@@ -8,6 +8,15 @@ alias config="cd $HOME//Documents/VSCODE/CONFIG/"
 # Show all paths
 function path { tr ':' '\n' <<< "$PATH"; }
 
+# Automatically run ls after cd
+function list_all() {
+  emulate -L zsh
+  ls
+}
+if [[ ${chpwd_functions[(r)list_all]} != "list_all" ]];then
+  chpwd_functions=(${chpwd_functions[@]} "list_all")
+fi
+
 # System info for reporting issues
 function sysinfo {
 		    sw_vers;
