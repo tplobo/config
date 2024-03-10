@@ -34,3 +34,6 @@ IFS=$'\n'; mysides-fill "$SHORTCUTS"; unset IFS
 # Apply Launchpad organization
 apply_launchpad
 
+################################## Launchpad ##################################
+
+# Set apps in Dock
