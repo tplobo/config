@@ -1,3 +1,4 @@
+
 ################################## dotfiles ###################################
 
 DOTFILES=(
@@ -70,91 +71,59 @@ function save_launchpad () {
 ################################# Preferences #################################
 
 function save_preferences () {
-    PREFPATH="prefpaths/macos"
-    #PREFPATH="prefpaths/third_party"
-    ALL_FILES=($PREFPATH/*)
+    # Argument: folder with .TXT files with lists of files
+    #PATH_PREFERENCES="preferences/macos" #PREFPATH="preferences/third_party"
+    PATH_PREFERENCES=$@
+    # Check if PREF_PATH exists
+    if [ ! -d $PATH_PREFERENCES ]; then
+        echo "Path to lists of preferences not found: $PATH_PREFERENCES"
+        return
+    fi
+    PATH_CONTAINERS="$HOME/Documents/VSCODE/CONFIG/$PATH_PREFERENCES/containers"
+    PATH_REPORT="$PATH_CONTAINERS/save_preferences_rsyncLOG.txt"
+    mkdir -p $PATH_CONTAINERS
+    DATE="$(date +%y-%m-%d.%H:%M:%S)"
+    MSG="$DATE SAVING PREFERENCES LISTED IN: $PATH_PREFERENCES"
+    echo_header1 $MSG
+    echo_header1 $MSG >> $PATH_REPORT
+
+    ALL_FILES=($PATH_PREFERENCES/*(.)) # Glob qualifier (.) takes only plain files
     #echo $ALL_FILES
     for FILE in $ALL_FILES; do
         #echo $FILE
-        FILENAME=${FILE##*/}
-        FOLDER=${FILENAME%%'.txt'*}
+        NAME_FILE=${FILE##*/}
+        NAME_FOLDER=${NAME_FILE%%'.txt'*}
+        echo_header2 "Saving preferences for: $NAME_FOLDER"
+
+        PATH_SAVE="$PATH_CONTAINERS/$NAME_FOLDER/"
+        #echo $PATH_SAVE
+        mkdir -p $PATH_SAVE
+
         for LINE in ${(f)"$(<$FILE)"}; do
             #echo $LINE
-            PREFERENCES=${LINE%%#*}
-            #echo "$PREFERENCES"
-            SAVEPATH="~/Documents/VSCODE/CONFIG/$PREFPATH/$FOLDER"
-            #echo $SAVEPATH
-            rsync $PREFERENCES $SAVEPATH
+            SUBLINE="${LINE%%#*}"   # Remove comments from LINE
+            #echo $SUBLINE
+            PREFERENCES=${SUBLINE//"~"/$HOME} # Substitute '~' by HOME
+            #echo $PREFERENCES
+
+            if [ ! -e $PREFERENCES ]; then
+                MSG="File not found: $PREFERENCES"
+                echo_header2 $MSG >> $PATH_REPORT
+                echo_yellow $MSG
+            else
+                MSG="Syncing: $PREFERENCES"
+                echo_header2 $MSG >> $PATH_REPORT
+                echo $MSG
+                rsync -ahdq --log-file=$PATH_REPORT --exclude ".DS_Store" \
+                    $PREFERENCES $PATH_SAVE 2>/dev/null \
+                    || echo_red "Sync failed: $PREFERENCES"
+            fi
+
         done
-
-        #IFS=$'\n'
-        #source $FILE
-        
-        #TYPE="${(t)SETTINGS}"
-        #echo $TYPE; echo ' '
-
-        #echo $SETTINGS
-        #printf '%q' "$SETTINGS"
-        #echo ' '
-
-        #echo ${SETTINGS[@]}
-        #printf '%q ' "${SETTINGS[@]}"
-        #echo ' '
-
-
-        #IFS=$'\n'
-        #array=("${(@f)$(printf '%s/n' $SETTINGS)}")
-        #echo $array
-        #ARRAY=(${(f)SETTINGS})
-        #printf '%s\n' $array
-        #echo ' '
-        #while read -r LINE; do
-        #    echo "$LINE"
-        #done < <(SETTINGS)
-
-        #SETTINGS="$(SETTINGS)"
-        
-        
-        #while IFS= read -r LINE; do
-        #    echo "$LINE"
-        #done <<< ${(f)SETTINGS}
-
-        #OIFS="$IFS"
-        #IFS="\n"
-        #for LINE in ${(ps:\n:)SETTINGS}
-        #do
-        #    echo "LINE: $line"
-        #done
-        #IFS="$OIFS"
-
-        #OIFS="$IFS"
-        #IFS=$'\n\n'
-        #printf %q "$IFS"; echo ''
-
-        #printf '%s\n' "${(f)SETTINGS}"
-        #printf '%s\n' $(${(ps:\n:)"$(SETTINGS)"})
-        #while read -r line; do
-        #    echo "LINE: $line"
-        #done <<< "$SETTINGS"
-        #done < <(printf '%s\n' ${SETTINGS[@]})
-
-        #IFS="$OIFS"
-        #printf %q "$IFS"; echo ''
-
-        
-        #while read -r line; do
-        #    echo $line
-        #done <<<
-        
-        #for PREF in "$SETTINGS[@]"; do
-        #for PREF ($=SETTINGS) ; do
-        #for PREF (${(f)SETTINGS}) ; do
-        #    echo $PREF
-        #done
-        
         echo ' '
     done
-    #DATA=cat preferences/macos/terminal.sh
-    #echo $DATA
-    #cp `cat list.txt` new-folder/
+}
+
+function apply_preferences () {
+    
 }
