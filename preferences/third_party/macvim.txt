@@ -1,2 +1,3 @@
-Library/Preferences/org.vim.MacVim.LSSharedFileList.plist
-Library/Preferences/org.vim.MacVim.plist
+~/.viminfo
+/Library/Preferences/org.vim.MacVim.LSSharedFileList.plist
+/Library/Preferences/org.vim.MacVim.plist

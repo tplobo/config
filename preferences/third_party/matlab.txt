@@ -1,2 +1,3 @@
 .matlab
-/Users/tiago/Library/Application Support/MathWorks/MATLAB
+~/Library/Application Support/MathWorks/MATLAB/*/matlabprefs.matlab
+~/Library/Application Support/MathWorks/MATLAB/{*_licenses}

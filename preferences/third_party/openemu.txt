@@ -1,2 +1,2 @@
-Library/Preferences/org.openemu.OpenEmu.plist
-Library/Application Support/OpenEmu
+/Library/Preferences/org.openemu.OpenEmu.plist
+/Library/Application Support/OpenEmu

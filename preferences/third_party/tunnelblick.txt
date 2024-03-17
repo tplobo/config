@@ -1,1 +1,2 @@
-Library/Application Support/Tunnelblick/Configurations
+~/Library/Application Support/Tunnelblick/Configurations
+/Library/Application Support/Tunnelblick/Shared

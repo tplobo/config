@@ -1,4 +1,5 @@
-# Source base script
+# Source base scripts
+source dotfiles/.zsh_aliases
 source config_base.sh
 
 # Apply saved preferences for MacOS

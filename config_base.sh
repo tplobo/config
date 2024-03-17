@@ -93,6 +93,7 @@ paths_to_containers_and_report() {
 }
 
 sync_preference() {
+    sudo -v
     local ACTION_TYPE="$1"
     local PREFERENCE="$2"
     local PATH_FOLDER="$3"
@@ -119,9 +120,9 @@ sync_preference() {
         echo_header2 $MSG >> $PATH_REPORT; echo $MSG
         echo "-- from: $PREFERENCE"
         echo "---- to: $DESTINATION"
-        rsync -ahdq --log-file="$PATH_REPORT" --exclude ".DS_Store"\
-            "$SOURCE" "$DESTINATION" 2>/dev/null\
-            || echo_red "Sync failed: $PREFERENCE"
+        sudo rsync -ahdq --log-file="$PATH_REPORT" --exclude ".DS_Store"\
+            "$SOURCE" "$DESTINATION" 2>>$PATH_REPORT\
+            || echo_red "Sync partially or completely failed: $PREFERENCE"
     fi
 }
 
