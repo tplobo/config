@@ -70,85 +70,114 @@ function save_launchpad () {
 
 ################################# Preferences #################################
 
-function save_preferences () {
-    PATH_PREFERENCES=$@ # Argument: folder with .TXT files with lists of files
-    if [ ! -d $PATH_PREFERENCES ]; then
-        echo "Path to lists of preferences not found: $PATH_PREFERENCES"
-        return
+validate_directory() {
+    local DIRECTORY="$1"
+    local CONTENTS="$2"
+    if [ ! -d "$DIRECTORY" ]; then
+        echo "Path to $CONTENTS not found: $DIRECTORY"
+        return 1
     fi
-    PATH_CONTAINERS="$HOME/Documents/VSCODE/CONFIG/$PATH_PREFERENCES/containers"
-    PATH_REPORT="$PATH_CONTAINERS/save_preferences_rsyncLOG.txt"
-    mkdir -p $PATH_CONTAINERS
-    DATE="$(date +%y-%m-%d.%H:%M:%S)"
-    MSG="$DATE SAVING PREFERENCES LISTED IN: $PATH_PREFERENCES"
-    echo_header1 $MSG >> $PATH_REPORT; echo_header1 $MSG
-    ALL_FILES=($PATH_PREFERENCES/*(.)) # Glob qualifier (.): only plain files
-    for FILE in $ALL_FILES; do
-        NAME_FILE=${FILE##*/}
-        NAME_FOLDER=${NAME_FILE%%'.txt'*}
-        echo_header2 "Saving preferences for: $NAME_FOLDER"
-        PATH_SAVE="$PATH_CONTAINERS/$NAME_FOLDER/"
-        mkdir -p $PATH_SAVE
-        for LINE in ${(f)"$(<$FILE)"}; do
-            PREFERENCES=${LINE//"~"/$HOME} # Substitute '~' by HOME
-            if [ ! -e $PREFERENCES ]; then
-                MSG="File not found: $PREFERENCES"
-                echo_header2 $MSG >> $PATH_REPORT; echo_yellow $MSG
+}
+
+paths_to_containers_and_report() {
+    local PATH_PREFERENCES="$1"
+    local REPORT_TYPE="$2"
+    local CONFIG_DIR="$HOME/Documents/VSCODE/CONFIG"
+    local PATH_CONTAINERS="$CONFIG_DIR/$PATH_PREFERENCES/containers"
+    local PATH_REPORT="$PATH_CONTAINERS/${REPORT_TYPE}_preferences_rsyncLOG.txt"
+    echo "$PATH_CONTAINERS" "$PATH_REPORT"
+}
+
+sync_files() {
+    local FILE="$1"
+    local PATH_REPORT="$2"
+    local PATH_CONTAINERS="$3"
+    local ACTION="$4"
+
+    local NAME_FILE="${FILE##*/}"
+    local NAME_FOLDER="${NAME_FILE%%'.txt'*}"
+    local PATH_SAVE="$PATH_CONTAINERS/$NAME_FOLDER/"
+    if [ ! -d "$PATH_SAVE" ]; then
+        mkdir -p "$PATH_SAVE"
+    fi
+
+    while IFS= read -r LINE; do
+        local PREFERENCES=${LINE//"~"/$HOME} # Substitute '~' by HOME
+        if [ ! -e "$PREFERENCES" ]; then
+            MSG="File not found: $PREFERENCES"
+            echo_header2 "$MSG" >> "$PATH_REPORT"; echo_yellow "$MSG"
+        else
+            if [[ "$ACTION" == "apply" ]]; then
+                local DESTINATION="${PREFERENCES%/*}/"
+                local SAVED_ITEM="${PREFERENCES##*/}"
+                local PATH_ITEM="$PATH_SAVE$SAVED_ITEM"
+                local SOURCE="$PATH_ITEM"
+            elif [[ "$ACTION" == "save" ]]; then
+                local SOURCE="$PREFERENCES"
+                local DESTINATION="$PATH_SAVE"
+                
             else
-                MSG="Syncing: $PREFERENCES"
-                echo_header2 $MSG >> $PATH_REPORT; echo $MSG
-                rsync -ahdq --log-file=$PATH_REPORT --exclude ".DS_Store" \
-                    $PREFERENCES $PATH_SAVE 2>/dev/null \
-                    || echo_red "Sync failed: $PREFERENCES"
+                echo_red "Invalid action specified: $ACTION"
+                return 1
             fi
-        done
+            MSG="Syncing: $PREFERENCES"
+            echo_header2 $MSG >> $PATH_REPORT; echo $MSG
+            echo "-------- from $PREFERENCES"
+            echo "-------- to $DESTINATION"
+            rsync -ahdq --log-file="$PATH_REPORT" --exclude ".DS_Store"\
+                "$SOURCE" "$DESTINATION" 2>/dev/null\
+                || echo_red "Sync failed: $PREFERENCES"
+        fi
+    done < "$FILE"
+}
+
+process_files() {
+    local DIR="$1"
+    local ACTION="$2"
+    local PATH_REPORT="$3"
+    local PATH_CONTAINERS="$4"
+    local ACTION_TYPE="$5"
+
+    for FILE in "$DIR"/*(.); do
+        echo_header2 "$ACTION_TYPE preferences for: ${FILE:t:r}"
+        while IFS= read -r LINE; do
+            sync_files "$FILE" "$PATH_REPORT" "$PATH_CONTAINERS" "$ACTION_TYPE"
+        done < "$FILE"
     done
+}
+
+function save_preferences() {
+    local PATH_PREFERENCES="$@"
+    validate_directory "$PATH_PREFERENCES" "lists of preferences" || return 1
+    
+    local ALL_PATHS=($(paths_to_containers_and_report "$PATH_PREFERENCES" "save"))
+    local PATH_CONTAINERS="${ALL_PATHS[0]}"
+    local PATH_REPORT="${ALL_PATHS[1]}"
+    
+    mkdir -p "$PATH_CONTAINERS"
+    
+    local DATE="$(date +%y-%m-%d.%H:%M:%S)"
+    local MSG="$DATE SAVING PREFERENCES LISTED IN: $PATH_PREFERENCES"
+    echo_header1 "$MSG" >> "$PATH_REPORT"; echo_header1 "$MSG"
+    
+    process_files "$PATH_PREFERENCES" 'sync_files' "$PATH_REPORT" "$PATH_CONTAINERS" "save"
     echo ' '
 }
 
-function apply_preferences () {
-    PATH_PREFERENCES=$@ # Argument: folder with .TXT files with lists of files
-    if [ ! -d $PATH_PREFERENCES ]; then
-        echo "Path to lists of preferences not found: $PATH_PREFERENCES"
-        return
-    fi
-    PATH_CONTAINERS="$HOME/Documents/VSCODE/CONFIG/$PATH_PREFERENCES/containers"
-    if [ ! -d $PATH_CONTAINERS ]; then
-        echo "Path to preferences containers not found: $PATH_CONTAINERS"
-        return
-    fi
-    PATH_REPORT="$PATH_CONTAINERS/apply_preferences_rsyncLOG.txt"
-    DATE="$(date +%y-%m-%d.%H:%M:%S)"
-    MSG="$DATE APPLYING PREFERENCES LISTED IN: $PATH_PREFERENCES"
-    echo_header1 $MSG >> $PATH_REPORT; echo_header1 $MSG
-    ALL_FILES=($PATH_PREFERENCES/*(.)) # Glob qualifier (.): only plain files
-    for FILE in $ALL_FILES; do
-        NAME_FILE=${FILE##*/}
-        NAME_FOLDER=${NAME_FILE%%'.txt'*}
-        echo_header2 "Applying preferences for: $NAME_FOLDER"
-        PATH_SAVE="$PATH_CONTAINERS/$NAME_FOLDER/"
-        if [ ! -d $PATH_CONTAINERS ]; then
-            echo "Path to preferences container not found: $PATH_SAVE"
-            return
-        fi
-        for LINE in ${(f)"$(<$FILE)"}; do
-            PREFERENCES=${LINE//"~"/$HOME} # Substitute '~' by HOME
-            DESTINATION="${PREFERENCES%/*}/"
-            SAVED_ITEM=${PREFERENCES##*/}
-            PATH_ITEM="$PATH_SAVE$SAVED_ITEM"
-            if [ ! -e $PATH_ITEM ]; then
-                MSG="File not found: $PATH_ITEM"
-                echo_header2 $MSG >> $PATH_REPORT; echo_yellow $MSG
-            else
-                MSG="Syncing: $PREFERENCES"
-                echo_header2 $MSG >> $PATH_REPORT; echo $MSG
-                echo "from $PATH_ITEM"
-                echo "to $DESTINATION"
-                #rsync -ahdq --log-file=$PATH_REPORT --exclude ".DS_Store" \
-                #    $PATH_ITEM $DESTINATION 2>/dev/null \
-                #    || echo_red "Sync failed: $PREFERENCES"
-            fi
-        done
-    done
+function apply_preferences() {
+    local PATH_PREFERENCES="$@"
+    validate_directory "$PATH_PREFERENCES" "lists of preferences" || return 1
+
+    local ALL_PATHS=($(paths_to_containers_and_report "$PATH_PREFERENCES" "apply"))
+    local PATH_CONTAINERS="${ALL_PATHS[0]}"
+    local PATH_REPORT="${ALL_PATHS[1]}"
+
+    validate_directory "$PATH_CONTAINERS" "preferences containers" || return 1
+    
+    local DATE="$(date +%y-%m-%d.%H:%M:%S)"
+    local MSG="$DATE APPLYING PREFERENCES LISTED IN: $PATH_PREFERENCES"
+    echo_header1 "$MSG" >> "$PATH_REPORT"; echo_header1 "$MSG"
+    
+    process_files "$PATH_PREFERENCES" 'sync_files' "$PATH_REPORT" "$PATH_CONTAINERS" "apply"
     echo ' '
 }
