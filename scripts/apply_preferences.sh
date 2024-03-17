@@ -11,28 +11,27 @@ apply_preferences preferences/third_party
 # Kill affected applications                                                  #
 ###############################################################################
 
-for app in "Activity Monitor" \
+#TODO: revise list
+for app in \
+	"Activity Monitor" \
+	"1Password" \
 	"Address Book" \
 	"Calendar" \
-	"cfprefsd" \
+	"cfprefsd" \ 	# Core Foundations Preferences background service
 	"Contacts" \
 	"Dock" \
 	"Finder" \
-	"Google Chrome Canary" \
-	"Google Chrome" \
+	"Firefox" \
+	"iCal" \
 	"Mail" \
 	"Messages" \
-	"Opera" \
 	"Photos" \
 	"Safari" \
-	"SizeUp" \
-	"Spectacle" \
-	"SystemUIServer" \
+	"SystemUIServer" \ 		# Menu bar and GUI manager
 	"Terminal" \
-	"Transmission" \
-	"Tweetbot" \
-	"Twitter" \
-	"iCal"; do
-	killall "${app}" &> /dev/null
+	"Tunnelblick" \
+	"Wireguard" \
+	do
+		killall "${app}" &> /dev/null
 done
 echo "Done. Note that some of these changes require a logout/restart to take effect."

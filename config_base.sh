@@ -70,6 +70,10 @@ function save_launchpad () {
 
 ################################# Preferences #################################
 
+# Call `apply_preferences` or `save_preferences` and give as argument
+# a path to a folder in which TXT files specify lists of preference
+# files/directories to be copied into/from the `containers` folder.
+
 validate_directory() {
     local DIRECTORY="$1"
     local CONTENTS="$2"
@@ -88,60 +92,58 @@ paths_to_containers_and_report() {
     echo "$PATH_CONTAINERS" "$PATH_REPORT"
 }
 
-sync_files() {
-    local FILE="$1"
-    local PATH_REPORT="$2"
-    local PATH_CONTAINERS="$3"
-    local ACTION="$4"
+sync_preference() {
+    local ACTION_TYPE="$1"
+    local PREFERENCE="$2"
+    local PATH_FOLDER="$3"
+    local PATH_REPORT="$4"
 
-    local NAME_FILE="${FILE##*/}"
-    local NAME_FOLDER="${NAME_FILE%%'.txt'*}"
-    local PATH_SAVE="$PATH_CONTAINERS/$NAME_FOLDER/"
-    if [ ! -d "$PATH_SAVE" ]; then
-        mkdir -p "$PATH_SAVE"
+    if [[ "$ACTION_TYPE" == "apply" ]]; then
+        local DESTINATION="${PREFERENCE%/*}/"
+        local SAVED_ITEM="${PREFERENCE##*/}"
+        local PATH_ITEM="$PATH_FOLDER$SAVED_ITEM"
+        local SOURCE="$PATH_ITEM"
+    elif [[ "$ACTION_TYPE" == "save" ]]; then
+        local DESTINATION="$PATH_FOLDER"
+        local SOURCE="$PREFERENCE"
+    else
+        echo_red "Invalid action specified: $ACTION_TYPE"
+        return 1
     fi
 
-    while IFS= read -r LINE; do
-        local PREFERENCES=${LINE//"~"/$HOME} # Substitute '~' by HOME
-        if [ ! -e "$PREFERENCES" ]; then
-            MSG="File not found: $PREFERENCES"
-            echo_header2 "$MSG" >> "$PATH_REPORT"; echo_yellow "$MSG"
-        else
-            if [[ "$ACTION" == "apply" ]]; then
-                local DESTINATION="${PREFERENCES%/*}/"
-                local SAVED_ITEM="${PREFERENCES##*/}"
-                local PATH_ITEM="$PATH_SAVE$SAVED_ITEM"
-                local SOURCE="$PATH_ITEM"
-            elif [[ "$ACTION" == "save" ]]; then
-                local SOURCE="$PREFERENCES"
-                local DESTINATION="$PATH_SAVE"
-                
-            else
-                echo_red "Invalid action specified: $ACTION"
-                return 1
-            fi
-            MSG="Syncing: $PREFERENCES"
-            echo_header2 $MSG >> $PATH_REPORT; echo $MSG
-            echo "-------- from $PREFERENCES"
-            echo "-------- to $DESTINATION"
-            rsync -ahdq --log-file="$PATH_REPORT" --exclude ".DS_Store"\
-                "$SOURCE" "$DESTINATION" 2>/dev/null\
-                || echo_red "Sync failed: $PREFERENCES"
-        fi
-    done < "$FILE"
+    if [ ! -e "$SOURCE" ]; then
+        MSG="File not found: $SOURCE"
+        echo_header2 "$MSG" >> "$PATH_REPORT"; echo_yellow "$MSG"
+    else
+        MSG="Syncing: $PREFERENCE"
+        echo_header2 $MSG >> $PATH_REPORT; echo $MSG
+        echo "-- from: $PREFERENCE"
+        echo "---- to: $DESTINATION"
+        rsync -ahdq --log-file="$PATH_REPORT" --exclude ".DS_Store"\
+            "$SOURCE" "$DESTINATION" 2>/dev/null\
+            || echo_red "Sync failed: $PREFERENCE"
+    fi
 }
 
 process_files() {
-    local DIR="$1"
-    local ACTION="$2"
-    local PATH_REPORT="$3"
-    local PATH_CONTAINERS="$4"
-    local ACTION_TYPE="$5"
+    local ACTION="$1"
+    local ACTION_TYPE="$2"
+    local DIR="$3"
+    local PATH_REPORT="$4"
+    local PATH_CONTAINERS="$5"
 
     for FILE in "$DIR"/*(.); do
-        echo_header2 "$ACTION_TYPE preferences for: ${FILE:t:r}"
-        while IFS= read -r LINE; do
-            sync_files "$FILE" "$PATH_REPORT" "$PATH_CONTAINERS" "$ACTION_TYPE"
+        NAME_FOLDER="${FILE:t:r}"
+        echo_header2 "$ACTION_TYPE preferences for: $NAME_FOLDER"
+        local PATH_FOLDER="$PATH_CONTAINERS/$NAME_FOLDER/"
+        if [ ! -d "$PATH_FOLDER" ]; then
+            mkdir -p "$PATH_FOLDER"
+        fi
+
+        for LINE in ${(f)"$(<$FILE)"}; do
+            local PREFERENCE=${LINE//"~"/$HOME} # Substitute '~' by HOME
+            $ACTION "$ACTION_TYPE" \
+                "$PREFERENCE" "$PATH_FOLDER" "$PATH_REPORT"
         done < "$FILE"
     done
 }
@@ -151,16 +153,17 @@ function save_preferences() {
     validate_directory "$PATH_PREFERENCES" "lists of preferences" || return 1
     
     local ALL_PATHS=($(paths_to_containers_and_report "$PATH_PREFERENCES" "save"))
-    local PATH_CONTAINERS="${ALL_PATHS[0]}"
-    local PATH_REPORT="${ALL_PATHS[1]}"
-    
+    local PATH_CONTAINERS="${ALL_PATHS[1]}"
+    local PATH_REPORT="${ALL_PATHS[2]}"
+
     mkdir -p "$PATH_CONTAINERS"
     
     local DATE="$(date +%y-%m-%d.%H:%M:%S)"
     local MSG="$DATE SAVING PREFERENCES LISTED IN: $PATH_PREFERENCES"
     echo_header1 "$MSG" >> "$PATH_REPORT"; echo_header1 "$MSG"
     
-    process_files "$PATH_PREFERENCES" 'sync_files' "$PATH_REPORT" "$PATH_CONTAINERS" "save"
+    process_files 'sync_preference' "save" \
+        "$PATH_PREFERENCES" "$PATH_REPORT" "$PATH_CONTAINERS"
     echo ' '
 }
 
@@ -169,8 +172,8 @@ function apply_preferences() {
     validate_directory "$PATH_PREFERENCES" "lists of preferences" || return 1
 
     local ALL_PATHS=($(paths_to_containers_and_report "$PATH_PREFERENCES" "apply"))
-    local PATH_CONTAINERS="${ALL_PATHS[0]}"
-    local PATH_REPORT="${ALL_PATHS[1]}"
+    local PATH_CONTAINERS="${ALL_PATHS[1]}"
+    local PATH_REPORT="${ALL_PATHS[2]}"
 
     validate_directory "$PATH_CONTAINERS" "preferences containers" || return 1
     
@@ -178,6 +181,7 @@ function apply_preferences() {
     local MSG="$DATE APPLYING PREFERENCES LISTED IN: $PATH_PREFERENCES"
     echo_header1 "$MSG" >> "$PATH_REPORT"; echo_header1 "$MSG"
     
-    process_files "$PATH_PREFERENCES" 'sync_files' "$PATH_REPORT" "$PATH_CONTAINERS" "apply"
+    process_files 'sync_preference' "apply" \
+        "$PATH_PREFERENCES" "$PATH_REPORT" "$PATH_CONTAINERS"
     echo ' '
 }
