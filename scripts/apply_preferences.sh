@@ -1,9 +1,12 @@
+# Source base script
+source config_base.sh
 
-# Copy files/folders listed in each file in `settings`
+# Apply saved preferences for MacOS
+apply_preferences preferences/macos
 
+# Apply saved preferences for third-party apps
+apply_preferences preferences/third_party
 
-
-# TODO:
 ###############################################################################
 # Kill affected applications                                                  #
 ###############################################################################

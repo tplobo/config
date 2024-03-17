@@ -2,6 +2,6 @@
 ~/Library/PDF Services
 ~/Library/Preferences/com.apple.symbolichotkeys.plist
 ~/Library/Scripts
-~/Library/Services                          # Automator Quick Actions
+~/Library/Services
 ~/Library/Speech/Speakable Items
 ~/Library/Workflows

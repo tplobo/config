@@ -71,10 +71,7 @@ function save_launchpad () {
 ################################# Preferences #################################
 
 function save_preferences () {
-    # Argument: folder with .TXT files with lists of files
-    #PATH_PREFERENCES="preferences/macos" #PREFPATH="preferences/third_party"
-    PATH_PREFERENCES=$@
-    # Check if PREF_PATH exists
+    PATH_PREFERENCES=$@ # Argument: folder with .TXT files with lists of files
     if [ ! -d $PATH_PREFERENCES ]; then
         echo "Path to lists of preferences not found: $PATH_PREFERENCES"
         return
@@ -84,46 +81,74 @@ function save_preferences () {
     mkdir -p $PATH_CONTAINERS
     DATE="$(date +%y-%m-%d.%H:%M:%S)"
     MSG="$DATE SAVING PREFERENCES LISTED IN: $PATH_PREFERENCES"
-    echo_header1 $MSG
-    echo_header1 $MSG >> $PATH_REPORT
-
-    ALL_FILES=($PATH_PREFERENCES/*(.)) # Glob qualifier (.) takes only plain files
-    #echo $ALL_FILES
+    echo_header1 $MSG >> $PATH_REPORT; echo_header1 $MSG
+    ALL_FILES=($PATH_PREFERENCES/*(.)) # Glob qualifier (.): only plain files
     for FILE in $ALL_FILES; do
-        #echo $FILE
         NAME_FILE=${FILE##*/}
         NAME_FOLDER=${NAME_FILE%%'.txt'*}
         echo_header2 "Saving preferences for: $NAME_FOLDER"
-
         PATH_SAVE="$PATH_CONTAINERS/$NAME_FOLDER/"
-        #echo $PATH_SAVE
         mkdir -p $PATH_SAVE
-
         for LINE in ${(f)"$(<$FILE)"}; do
-            #echo $LINE
-            SUBLINE="${LINE%%#*}"   # Remove comments from LINE
-            #echo $SUBLINE
-            PREFERENCES=${SUBLINE//"~"/$HOME} # Substitute '~' by HOME
-            #echo $PREFERENCES
-
+            PREFERENCES=${LINE//"~"/$HOME} # Substitute '~' by HOME
             if [ ! -e $PREFERENCES ]; then
                 MSG="File not found: $PREFERENCES"
-                echo_header2 $MSG >> $PATH_REPORT
-                echo_yellow $MSG
+                echo_header2 $MSG >> $PATH_REPORT; echo_yellow $MSG
             else
                 MSG="Syncing: $PREFERENCES"
-                echo_header2 $MSG >> $PATH_REPORT
-                echo $MSG
+                echo_header2 $MSG >> $PATH_REPORT; echo $MSG
                 rsync -ahdq --log-file=$PATH_REPORT --exclude ".DS_Store" \
                     $PREFERENCES $PATH_SAVE 2>/dev/null \
                     || echo_red "Sync failed: $PREFERENCES"
             fi
-
         done
-        echo ' '
     done
+    echo ' '
 }
 
 function apply_preferences () {
-    
+    PATH_PREFERENCES=$@ # Argument: folder with .TXT files with lists of files
+    if [ ! -d $PATH_PREFERENCES ]; then
+        echo "Path to lists of preferences not found: $PATH_PREFERENCES"
+        return
+    fi
+    PATH_CONTAINERS="$HOME/Documents/VSCODE/CONFIG/$PATH_PREFERENCES/containers"
+    if [ ! -d $PATH_CONTAINERS ]; then
+        echo "Path to preferences containers not found: $PATH_CONTAINERS"
+        return
+    fi
+    PATH_REPORT="$PATH_CONTAINERS/apply_preferences_rsyncLOG.txt"
+    DATE="$(date +%y-%m-%d.%H:%M:%S)"
+    MSG="$DATE APPLYING PREFERENCES LISTED IN: $PATH_PREFERENCES"
+    echo_header1 $MSG >> $PATH_REPORT; echo_header1 $MSG
+    ALL_FILES=($PATH_PREFERENCES/*(.)) # Glob qualifier (.): only plain files
+    for FILE in $ALL_FILES; do
+        NAME_FILE=${FILE##*/}
+        NAME_FOLDER=${NAME_FILE%%'.txt'*}
+        echo_header2 "Applying preferences for: $NAME_FOLDER"
+        PATH_SAVE="$PATH_CONTAINERS/$NAME_FOLDER/"
+        if [ ! -d $PATH_CONTAINERS ]; then
+            echo "Path to preferences container not found: $PATH_SAVE"
+            return
+        fi
+        for LINE in ${(f)"$(<$FILE)"}; do
+            PREFERENCES=${LINE//"~"/$HOME} # Substitute '~' by HOME
+            DESTINATION="${PREFERENCES%/*}/"
+            SAVED_ITEM=${PREFERENCES##*/}
+            PATH_ITEM="$PATH_SAVE$SAVED_ITEM"
+            if [ ! -e $PATH_ITEM ]; then
+                MSG="File not found: $PATH_ITEM"
+                echo_header2 $MSG >> $PATH_REPORT; echo_yellow $MSG
+            else
+                MSG="Syncing: $PREFERENCES"
+                echo_header2 $MSG >> $PATH_REPORT; echo $MSG
+                echo "from $PATH_ITEM"
+                echo "to $DESTINATION"
+                #rsync -ahdq --log-file=$PATH_REPORT --exclude ".DS_Store" \
+                #    $PATH_ITEM $DESTINATION 2>/dev/null \
+                #    || echo_red "Sync failed: $PREFERENCES"
+            fi
+        done
+    done
+    echo ' '
 }
