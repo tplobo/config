@@ -118,7 +118,7 @@ sync_preference() {
     else
         MSG="Syncing: $PREFERENCE"
         echo_header2 $MSG >> $PATH_REPORT; echo $MSG
-        echo "-- from: $PREFERENCE"
+        echo "-- from: $SOURCE"
         echo "---- to: $DESTINATION"
         sudo rsync -ahdq --log-file="$PATH_REPORT" --exclude ".DS_Store"\
             "$SOURCE" "$DESTINATION" 2>>$PATH_REPORT\
