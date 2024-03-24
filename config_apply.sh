@@ -34,5 +34,7 @@ zsh scripts/apply_structure.sh
 # Set default web browser
 
 # Apply settings (copy folders/files for 1Password, qBittorrent, VSCode, ...)
+echo "Creating folder structure..."
+zsh scripts/apply_preferences.sh
 
 # Erase defined functions

@@ -92,69 +92,89 @@ paths_to_containers_and_report() {
     echo "$PATH_CONTAINERS" "$PATH_REPORT"
 }
 
-sync_preference() {
-    sudo -v
-    local ACTION_TYPE="$1"
-    local LINE="$2"
-    local PATH_FOLDER="$3"
-    local PATH_REPORT="$4"
-
-    local ABS_LINE=${LINE//"~"/$HOME} # Substitute '~' by HOME
-    local MATCHES=(${~ABS_LINE})
-
-    for PREFERENCE in ${MATCHES[@]}; do
-
-        if [[ "$ACTION_TYPE" == "apply" ]]; then
-            local DESTINATION="${PREFERENCE%/*}/"
-            local SAVED_ITEM="${PREFERENCE##*/}"
-            local PATH_ITEM="$PATH_FOLDER$SAVED_ITEM"
-            local SOURCE="$PATH_ITEM"
-        elif [[ "$ACTION_TYPE" == "save" ]]; then
-            local DESTINATION="$PATH_FOLDER"
-            local SOURCE="$PREFERENCE"
-        else
-            echo_red "Invalid action specified: $ACTION_TYPE"
-            return 1
-        fi
-
-        if [ ! -e "$SOURCE" ]; then
-            MSG="File not found: $SOURCE"
-            echo_header2 "$MSG" >> "$PATH_REPORT"; echo_yellow "$MSG"
-        else
-            MSG="Syncing: $PREFERENCE"
-            echo_header2 $MSG >> $PATH_REPORT; echo $MSG
-            echo "-- from: $SOURCE"
-            echo "---- to: $DESTINATION"
-            sudo rsync -ahdq --log-file="$PATH_REPORT" --exclude ".DS_Store"\
-                "$SOURCE" "$DESTINATION" 2>>$PATH_REPORT\
-                || echo_red "Sync partially or completely failed: $PREFERENCE"
-        fi
-    done
-}
-
 process_files() {
     local ACTION="$1"
-    local ACTION_TYPE="$2"
-    local DIR="$3"
-    local PATH_REPORT="$4"
-    local PATH_CONTAINERS="$5"
+    local DIR="$2"
+    local PATH_REPORT="$3"
+    local PATH_CONTAINERS="$4"
 
-    for FILE in "$DIR"/*(.); do
+    # use glob (.) to list only files in $DIR:
+    for FILE in "$DIR"/*(.); do 
         NAME_FOLDER="${FILE:t:r}"
-        echo_header2 "$ACTION_TYPE preferences for: $NAME_FOLDER"
-        local PATH_FOLDER="$PATH_CONTAINERS/$NAME_FOLDER/"
-        if [ ! -d "$PATH_FOLDER" ]; then
-            mkdir -p "$PATH_FOLDER"
-        fi
-
-        for LINE in ${(f)"$(<$FILE)"}; do
-            $ACTION "$ACTION_TYPE" \
-                "$LINE" "$PATH_FOLDER" "$PATH_REPORT"
-        done < "$FILE"
+        echo_header2 "'$ACTION' preferences for: $NAME_FOLDER"
+        local PATH_FOLDER="$PATH_CONTAINERS/$NAME_FOLDER"
+        $ACTION "$FILE" "$PATH_REPORT" "$PATH_FOLDER"
     done
 }
 
-function save_preferences() {
+sync_preference() {
+    local SOURCE="$1"
+    local DESTINATION="$2"
+    local PATH_REPORT="$3"
+
+    MSG="Syncing: $SOURCE"
+    echo_header2 $MSG >> $PATH_REPORT; echo $MSG
+    echo "-- from: $SOURCE"
+    echo "---- to: $DESTINATION"
+    
+    sudo rsync -ahdq --log-file="$PATH_REPORT" --exclude ".DS_Store"\
+        "$SOURCE" "$DESTINATION" 2>>$PATH_REPORT\
+        || echo_red "Sync partially or completely failed: $SOURCE"
+}
+
+sync_save() {
+    local FILE="$1"
+    local PATH_REPORT="$2"
+    local PATH_FOLDER="$3"
+
+    if [ ! -d "$PATH_FOLDER" ]; then
+        mkdir -p "$PATH_FOLDER"
+    fi
+    local METADATA_FILE="$PATH_FOLDER/metadata.txt"
+    touch "$METADATA_FILE"
+
+    for LINE in ${(f)"$(<$FILE)"}; do
+        local ABS_LINE=${LINE//"~"/$HOME} # Substitute '~' by HOME
+        local MATCHES=(${~ABS_LINE})
+
+        for PREFERENCE in ${MATCHES[@]}; do
+            local SOURCE="$PREFERENCE"
+            local UNIQUE_ID=$(uuidgen)
+            local DESTINATION="$PATH_FOLDER/$UNIQUE_ID/"
+            echo "$UNIQUE_ID#$PREFERENCE" >> "$METADATA_FILE"
+
+            sync_preference "$SOURCE" "$DESTINATION" "$PATH_REPORT"
+        done
+    done
+}
+
+sync_apply() {
+    local FILE="$1"
+    local PATH_REPORT="$2"
+    local PATH_FOLDER="$3"
+
+    local METADATA_FILE="$PATH_FOLDER/metadata.txt"
+    if [ ! -e "$METADATA_FILE" ]; then
+        echo_red "Metadata file not found: $METADATA_FILE"
+        return 1
+    fi
+
+    for LINE in ${(f)"$(<$METADATA_FILE)"}; do
+        local UNIQUE_ID=$(echo "$LINE" | cut -d '#' -f1)
+        local PATH_ORIGINAL=$(echo "$LINE" | cut -d '#' -f2)
+        local DESTINATION="${PATH_ORIGINAL%/*}"
+        local SOURCE="$PATH_FOLDER/$UNIQUE_ID/"
+
+        if [ ! -d "$DESTINATION" ]; then
+            mkdir -p "$DESTINATION"
+        fi
+        
+        sync_preference "$SOURCE" "$DESTINATION" "$PATH_REPORT"
+        sudo chown $(id -un) "$DESTINATION" # change ownership to user
+    done
+}
+
+save_preferences() {
     local PATH_PREFERENCES="$@"
     validate_directory "$PATH_PREFERENCES" "lists of preferences" || return 1
     
@@ -168,12 +188,12 @@ function save_preferences() {
     local MSG="$DATE SAVING PREFERENCES LISTED IN: $PATH_PREFERENCES"
     echo_header1 "$MSG" >> "$PATH_REPORT"; echo_header1 "$MSG"
     
-    process_files 'sync_preference' "save" \
+    process_files 'sync_save' \
         "$PATH_PREFERENCES" "$PATH_REPORT" "$PATH_CONTAINERS"
     echo ' '
 }
 
-function apply_preferences() {
+apply_preferences() {
     local PATH_PREFERENCES="$@"
     validate_directory "$PATH_PREFERENCES" "lists of preferences" || return 1
 
@@ -187,7 +207,7 @@ function apply_preferences() {
     local MSG="$DATE APPLYING PREFERENCES LISTED IN: $PATH_PREFERENCES"
     echo_header1 "$MSG" >> "$PATH_REPORT"; echo_header1 "$MSG"
     
-    process_files 'sync_preference' "apply" \
+    process_files 'sync_apply' \
         "$PATH_PREFERENCES" "$PATH_REPORT" "$PATH_CONTAINERS"
     echo ' '
 }
