@@ -120,11 +120,11 @@ sync_preference() {
         echo_header2 $MSG >> $PATH_REPORT; echo $MSG
         echo "-- from: $SOURCE"
         echo "---- to: $DESTINATION"
-        
+
         sudo rsync -ahdq --log-file="$PATH_REPORT" --exclude ".DS_Store"\
             "$SOURCE" "$DESTINATION" 2>>$PATH_REPORT\
             || echo_red "Sync partially or completely failed: $SOURCE"
-        fi
+    fi
 }
 
 sync_save() {
@@ -140,17 +140,25 @@ sync_save() {
 
     for LINE in ${(f)"$(<$FILE)"}; do
         local ABS_LINE=${LINE//"~"/$HOME} # Substitute '~' by HOME
-        local MATCHES=(${~ABS_LINE})
+        local MATCHES=(${~ABS_LINE}(N))
 
-        for PREFERENCE in ${MATCHES[@]}; do
-            local SOURCE="$PREFERENCE"
-            local UNIQUE_ID=$(uuidgen)
-            local DESTINATION="$PATH_FOLDER/$UNIQUE_ID/"
-            echo "$UNIQUE_ID#$PREFERENCE" >> "$METADATA_FILE"
-
-            sync_preference "$SOURCE" "$DESTINATION" "$PATH_REPORT"
-            
-        done
+        if [ -n "$MATCHES" ]; then
+            for PREFERENCE in ${MATCHES[@]}; do
+                local SOURCE="$PREFERENCE"
+                if grep -q "$PREFERENCE" "$METADATA_FILE"; then
+                    # take same ID if file has aleady been synced in the past
+                    local UNIQUE_ID=$(grep "$PREFERENCE" "$METADATA_FILE" | cut -d '#' -f1)
+                else
+                    local UNIQUE_ID=$(uuidgen)
+                    echo "$UNIQUE_ID#$PREFERENCE" >> "$METADATA_FILE"
+                fi
+                local DESTINATION="$PATH_FOLDER/$UNIQUE_ID/"
+                sync_preference "$SOURCE" "$DESTINATION" "$PATH_REPORT"
+            done  
+        else
+            MSG="No files match instruction: $ABS_LINE"
+            echo_header2 "$MSG" >> "$PATH_REPORT"; echo_yellow "$MSG"
+        fi
     done
 }
 
@@ -165,21 +173,24 @@ sync_apply() {
         return 1
     fi
 
-    for LINE in ${(f)"$(<$METADATA_FILE)"}; do
-        local UNIQUE_ID=$(echo "$LINE" | cut -d '#' -f1)
-        local PATH_ORIGINAL=$(echo "$LINE" | cut -d '#' -f2)
-        local DESTINATION="${PATH_ORIGINAL%/*}"
-        local SOURCE="$PATH_FOLDER/$UNIQUE_ID/"
+    if [ -s "$METADATA_FILE" ]; then
+        for LINE in ${(f)"$(<$METADATA_FILE)"}; do
+            local UNIQUE_ID=$(echo "$LINE" | cut -d '#' -f1)
+            local PATH_ORIGINAL=$(echo "$LINE" | cut -d '#' -f2)
+            local DESTINATION="${PATH_ORIGINAL%/*}"
+            local SOURCE="$PATH_FOLDER/$UNIQUE_ID/"
 
-        if [ ! -d "$DESTINATION" ]; then
-            mkdir -p "$DESTINATION"
-        fi
-        sync_preference "$SOURCE" "$DESTINATION" "$PATH_REPORT"
-        sudo chown $(id -un) "$DESTINATION" # change ownership to user
-    done
+            if [ ! -d "$DESTINATION" ]; then
+                mkdir -p "$DESTINATION"
+            fi
+            sync_preference "$SOURCE" "$DESTINATION" "$PATH_REPORT"
+            sudo chown $(id -un) "$DESTINATION" # change ownership to user
+        done
+    fi
 }
 
 save_preferences() {
+    sudo -v
     local PATH_PREFERENCES="$@"
     validate_directory "$PATH_PREFERENCES" "lists of preferences" || return 1
     
@@ -199,6 +210,7 @@ save_preferences() {
 }
 
 apply_preferences() {
+    sudo -v
     local PATH_PREFERENCES="$@"
     validate_directory "$PATH_PREFERENCES" "lists of preferences" || return 1
 
