@@ -95,35 +95,41 @@ paths_to_containers_and_report() {
 sync_preference() {
     sudo -v
     local ACTION_TYPE="$1"
-    local PREFERENCE="$2"
+    local LINE="$2"
     local PATH_FOLDER="$3"
     local PATH_REPORT="$4"
 
-    if [[ "$ACTION_TYPE" == "apply" ]]; then
-        local DESTINATION="${PREFERENCE%/*}/"
-        local SAVED_ITEM="${PREFERENCE##*/}"
-        local PATH_ITEM="$PATH_FOLDER$SAVED_ITEM"
-        local SOURCE="$PATH_ITEM"
-    elif [[ "$ACTION_TYPE" == "save" ]]; then
-        local DESTINATION="$PATH_FOLDER"
-        local SOURCE="$PREFERENCE"
-    else
-        echo_red "Invalid action specified: $ACTION_TYPE"
-        return 1
-    fi
+    local ABS_LINE=${LINE//"~"/$HOME} # Substitute '~' by HOME
+    local MATCHES=(${~ABS_LINE})
 
-    if [ ! -e "$SOURCE" ]; then
-        MSG="File not found: $SOURCE"
-        echo_header2 "$MSG" >> "$PATH_REPORT"; echo_yellow "$MSG"
-    else
-        MSG="Syncing: $PREFERENCE"
-        echo_header2 $MSG >> $PATH_REPORT; echo $MSG
-        echo "-- from: $SOURCE"
-        echo "---- to: $DESTINATION"
-        sudo rsync -ahdq --log-file="$PATH_REPORT" --exclude ".DS_Store"\
-            "$SOURCE" "$DESTINATION" 2>>$PATH_REPORT\
-            || echo_red "Sync partially or completely failed: $PREFERENCE"
-    fi
+    for PREFERENCE in ${MATCHES[@]}; do
+
+        if [[ "$ACTION_TYPE" == "apply" ]]; then
+            local DESTINATION="${PREFERENCE%/*}/"
+            local SAVED_ITEM="${PREFERENCE##*/}"
+            local PATH_ITEM="$PATH_FOLDER$SAVED_ITEM"
+            local SOURCE="$PATH_ITEM"
+        elif [[ "$ACTION_TYPE" == "save" ]]; then
+            local DESTINATION="$PATH_FOLDER"
+            local SOURCE="$PREFERENCE"
+        else
+            echo_red "Invalid action specified: $ACTION_TYPE"
+            return 1
+        fi
+
+        if [ ! -e "$SOURCE" ]; then
+            MSG="File not found: $SOURCE"
+            echo_header2 "$MSG" >> "$PATH_REPORT"; echo_yellow "$MSG"
+        else
+            MSG="Syncing: $PREFERENCE"
+            echo_header2 $MSG >> $PATH_REPORT; echo $MSG
+            echo "-- from: $SOURCE"
+            echo "---- to: $DESTINATION"
+            sudo rsync -ahdq --log-file="$PATH_REPORT" --exclude ".DS_Store"\
+                "$SOURCE" "$DESTINATION" 2>>$PATH_REPORT\
+                || echo_red "Sync partially or completely failed: $PREFERENCE"
+        fi
+    done
 }
 
 process_files() {
@@ -142,9 +148,8 @@ process_files() {
         fi
 
         for LINE in ${(f)"$(<$FILE)"}; do
-            local PREFERENCE=${LINE//"~"/$HOME} # Substitute '~' by HOME
             $ACTION "$ACTION_TYPE" \
-                "$PREFERENCE" "$PATH_FOLDER" "$PATH_REPORT"
+                "$LINE" "$PATH_FOLDER" "$PATH_REPORT"
         done < "$FILE"
     done
 }

@@ -1,1 +1,2 @@
-~/Desktop/test_folder/*[_licenses]
+~/Desktop/test_folder/*_licenses
+~/Desktop/test_folder/*/test_prefs.txt
