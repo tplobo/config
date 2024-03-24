@@ -1,0 +1,4 @@
+E6F92E05-ADD8-4F33-8FE6-4206CFC3C619#/Users/tiago/Desktop/test_folder/year1_licenses
+E56C4222-9D66-4253-95F2-C1F1402620D2#/Users/tiago/Desktop/test_folder/year2_licenses
+E0CB0E22-74C7-492B-ABA3-A73CB795421D#/Users/tiago/Desktop/test_folder/year1_preferences/test_prefs.txt
+82EA562B-00BD-412E-B141-97A0449D9CE1#/Users/tiago/Desktop/test_folder/year2_preferences/test_prefs.txt
