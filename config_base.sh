@@ -112,14 +112,19 @@ sync_preference() {
     local DESTINATION="$2"
     local PATH_REPORT="$3"
 
-    MSG="Syncing: $SOURCE"
-    echo_header2 $MSG >> $PATH_REPORT; echo $MSG
-    echo "-- from: $SOURCE"
-    echo "---- to: $DESTINATION"
-    
-    sudo rsync -ahdq --log-file="$PATH_REPORT" --exclude ".DS_Store"\
-        "$SOURCE" "$DESTINATION" 2>>$PATH_REPORT\
-        || echo_red "Sync partially or completely failed: $SOURCE"
+    if [ ! -e "$SOURCE" ]; then
+        MSG="File not found: $SOURCE"
+        echo_header2 "$MSG" >> "$PATH_REPORT"; echo_yellow "$MSG"
+    else
+        MSG="Syncing: $SOURCE"
+        echo_header2 $MSG >> $PATH_REPORT; echo $MSG
+        echo "-- from: $SOURCE"
+        echo "---- to: $DESTINATION"
+        
+        sudo rsync -ahdq --log-file="$PATH_REPORT" --exclude ".DS_Store"\
+            "$SOURCE" "$DESTINATION" 2>>$PATH_REPORT\
+            || echo_red "Sync partially or completely failed: $SOURCE"
+        fi
 }
 
 sync_save() {
@@ -144,6 +149,7 @@ sync_save() {
             echo "$UNIQUE_ID#$PREFERENCE" >> "$METADATA_FILE"
 
             sync_preference "$SOURCE" "$DESTINATION" "$PATH_REPORT"
+            
         done
     done
 }
@@ -168,7 +174,6 @@ sync_apply() {
         if [ ! -d "$DESTINATION" ]; then
             mkdir -p "$DESTINATION"
         fi
-        
         sync_preference "$SOURCE" "$DESTINATION" "$PATH_REPORT"
         sudo chown $(id -un) "$DESTINATION" # change ownership to user
     done
