@@ -22,8 +22,8 @@ How to save configs:
 
 1) I Xcode with command line tools: `xcode-select --install`.
 2) ...
-3) Run `zsh config_bootstrap.sh`. (turn into alias)
-
+3) Run `zsh config_bootstrap.sh`.
+...
 10) Apply config
 
 ## Apply computer config
@@ -32,6 +32,11 @@ Run `zsh config_apply.sh`. (turn into alias)
 ## Save computer config
 Run `zsh config_save.sh`. (turn into alias)
 
+If adding files to repository after `config_save.sh` fails because of
+permissions, [add them with root user](https://stackoverflow.com/questions/6448242/git-push-error-insufficient-permission-for-adding-an-object-to-repository-datab):
+- `sudo git add .`
+- `sudo chmod -R a+rwX .`
+- `sudo find . -type d -exec chmod g+s '{}' +`
 
 
 
