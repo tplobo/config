@@ -124,6 +124,7 @@ sync_preference() {
         sudo rsync -ahdq --log-file="$PATH_REPORT" --exclude ".DS_Store"\
             "$SOURCE" "$DESTINATION" 2>>$PATH_REPORT\
             || echo_red "Sync partially or completely failed: $SOURCE"
+        sudo chown $(id -un) "$DESTINATION" # change ownership to user
     fi
 }
 
@@ -184,7 +185,6 @@ sync_apply() {
                 mkdir -p "$DESTINATION"
             fi
             sync_preference "$SOURCE" "$DESTINATION" "$PATH_REPORT"
-            sudo chown $(id -un) "$DESTINATION" # change ownership to user
         done
     fi
 }
