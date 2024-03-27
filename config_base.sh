@@ -101,7 +101,7 @@ process_files() {
     # use glob (.) to list only files in $DIR:
     for FILE in "$DIR"/*(.); do 
         NAME_FOLDER="${FILE:t:r}"
-        echo_header2 "'$ACTION' preferences for: $NAME_FOLDER"
+        echo_header 5 "'$ACTION' preferences for: $NAME_FOLDER"
         local PATH_FOLDER="$PATH_CONTAINERS/$NAME_FOLDER"
         $ACTION "$FILE" "$PATH_REPORT" "$PATH_FOLDER"
     done
@@ -114,10 +114,10 @@ sync_preference() {
 
     if [ ! -e "$SOURCE" ]; then
         MSG="File not found: $SOURCE"
-        echo_header2 "$MSG" >> "$PATH_REPORT"; echo_yellow "$MSG"
+        echo_header 5 "$MSG" >> "$PATH_REPORT"; echo_yellow "$MSG"
     else
         MSG="Syncing: $SOURCE"
-        echo_header2 $MSG >> $PATH_REPORT; echo $MSG
+        echo_header 5 $MSG >> $PATH_REPORT; echo $MSG
         echo "-- from: $SOURCE"
         echo "---- to: $DESTINATION"
 
@@ -142,6 +142,7 @@ sync_save() {
     for LINE in ${(f)"$(<$FILE)"}; do
         local ABS_LINE=${LINE//"~"/$HOME} # Substitute '~' by HOME
         local MATCHES=(${~ABS_LINE}(N))
+        # See: https://stackoverflow.com/questions/67711757/glob-as-the-argument-of-a-shell-function
 
         if [ -n "$MATCHES" ]; then
             for PREFERENCE in ${MATCHES[@]}; do
@@ -158,7 +159,7 @@ sync_save() {
             done  
         else
             MSG="No files match instruction: $ABS_LINE"
-            echo_header2 "$MSG" >> "$PATH_REPORT"; echo_yellow "$MSG"
+            echo_header 5 "$MSG" >> "$PATH_REPORT"; echo_yellow "$MSG"
         fi
     done
 }
@@ -202,7 +203,7 @@ save_preferences() {
     
     local DATE="$(date +%y-%m-%d.%H:%M:%S)"
     local MSG="$DATE SAVING PREFERENCES LISTED IN: $PATH_PREFERENCES"
-    echo_header1 "$MSG" >> "$PATH_REPORT"; echo_header1 "$MSG"
+    echo_header 1 "$MSG" >> "$PATH_REPORT"; echo_header 1 "$MSG"
     
     process_files 'sync_save' \
         "$PATH_PREFERENCES" "$PATH_REPORT" "$PATH_CONTAINERS"
@@ -222,7 +223,7 @@ apply_preferences() {
     
     local DATE="$(date +%y-%m-%d.%H:%M:%S)"
     local MSG="$DATE APPLYING PREFERENCES LISTED IN: $PATH_PREFERENCES"
-    echo_header1 "$MSG" >> "$PATH_REPORT"; echo_header1 "$MSG"
+    echo_header 1 "$MSG" >> "$PATH_REPORT"; echo_header 1 "$MSG"
     
     process_files 'sync_apply' \
         "$PATH_PREFERENCES" "$PATH_REPORT" "$PATH_CONTAINERS"

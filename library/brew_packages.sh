@@ -3,7 +3,7 @@
 ################################## Essentials #################################
 
 # Windows environment
-#brew install wine-stable
+#TODO: brew install wine-stable
 
 ################################# Office Tools ################################
 

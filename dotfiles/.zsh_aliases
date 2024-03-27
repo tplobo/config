@@ -60,21 +60,46 @@ function echo_red () { echo $red"$1"$reset; }
 function echo_green () { echo $green"$1"$reset; }
 function echo_yellow () { echo $yellow"$1"$reset; }
 
-function echo_header1 () {
-    ARG_LENGTH=$(echo -n $@ | wc -m)
-    MIN_LENGTH=80
-    LENGTH=$(( ARG_LENGTH > MIN_LENGTH ? ARG_LENGTH : MIN_LENGTH ))
-    echo "${(l:$LENGTH::#:)}" # Unicode: U+005F
-    echo $@
-    echo "${(l:$LENGTH::#:)}" # Unicode: U+00AF
-}
-function echo_header2 () {
-    ARG_LENGTH=$(echo -n $@ | wc -m)
-    MIN_LENGTH=80
-    LENGTH=$(( ARG_LENGTH > MIN_LENGTH ? ARG_LENGTH : MIN_LENGTH ))
-    echo "${(l:$LENGTH::_:)}" # Unicode: U+005F
-    echo $@
-    echo "${(l:$LENGTH::¯:)}" # Unicode: U+00AF
+function echo_header() {
+    local LEVEL="$1"
+    shift
+    local CHAR_UPPER
+    local CHAR_LOWER
+    
+    case $LEVEL in
+        1)
+            CHAR_UPPER="#"
+            CHAR_LOWER="#"
+            ;;
+        2)
+            CHAR_UPPER="*"
+            CHAR_LOWER="*"
+            ;;
+        3)
+            CHAR_UPPER="~"
+            CHAR_LOWER="~"
+            ;;
+        4)
+            CHAR_UPPER="-"
+            CHAR_LOWER="-"
+            ;;
+        5)
+            CHAR_UPPER="_" # Unicode: U+005F
+            CHAR_LOWER="¯" # Unicode: U+00AF
+            ;;
+        *)
+            echo "Error: Unsupported header level." >&2
+            return 1
+            ;;
+    esac
+    
+    local ARG_LENGTH=$(echo -n "$*" | wc -m)
+    local MIN_LENGTH=80
+    local LENGTH=$(( ARG_LENGTH > MIN_LENGTH ? ARG_LENGTH : MIN_LENGTH ))
+    
+    printf "%0.s$CHAR_UPPER" $(seq 1 $LENGTH); echo
+    echo "$@"
+    printf "%0.s$CHAR_LOWER" $(seq 1 $LENGTH); echo
 }
 
 ################################## Homebrew ###################################

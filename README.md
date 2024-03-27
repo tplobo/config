@@ -12,6 +12,7 @@ General:
 - [aliases in scripts](https://unix.stackexchange.com/questions/1496/why-doesnt-my-bash-script-recognize-aliases)
 - [macOS settings](https://github.com/tiiiecherle/osx_install_config)
 - [files saved by `mackup`](https://github.com/lra/mackup)
+- [ZSH expansion](https://thevaluable.dev/zsh-expansion-guide-example/)
 
 How to save configs:
 
