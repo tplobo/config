@@ -124,7 +124,10 @@ sync_preference() {
         sudo rsync -ahdq --log-file="$PATH_REPORT" --exclude ".DS_Store"\
             "$SOURCE" "$DESTINATION" 2>>$PATH_REPORT\
             || echo_red "Sync partially or completely failed: $SOURCE"
-        sudo chown $(id -un) "$DESTINATION" # change ownership to user
+        #sudo chown $(id -un) "$DESTINATION" # change ownership to user
+        sudo chgrp -R config "$DESTINATION" # change the group to 'config'
+        sudo chmod -R 775 "$DESTINATION" # give read/write permissions to group
+        find "$DESTINATION" -type d -exec sudo chmod g+s {} \; # setgid
     fi
 }
 

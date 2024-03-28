@@ -3,6 +3,10 @@
 sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
+# Create `config` group
+echo "Creating config group..."
+zsh scripts/create_group.sh
+
 # Apply MacOS configurations
 echo "Applying macOS configurations..."
 zsh scripts/apply_macos.sh
