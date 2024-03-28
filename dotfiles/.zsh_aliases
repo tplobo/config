@@ -17,6 +17,10 @@ if [[ ${chpwd_functions[(r)list_all]} != "list_all" ]];then
   chpwd_functions=(${chpwd_functions[@]} "list_all")
 fi
 
+# Recursevively list files in directory
+alias rls="find . -exec stat -f '%N' {} +"
+alias rls-la="find . -exec stat -f '%Sp%t%Su%t%Sg%t%N' {} +"
+
 # System info for reporting issues
 function sysinfo {
 		    sw_vers;
