@@ -8,6 +8,10 @@ alias config="cd $HOME//Documents/VSCODE/CONFIG/"
 # Show all paths
 function path { tr ':' '\n' <<< "$PATH"; }
 
+# List all users and groups
+alias all_users="dscl . list /users"
+alias all_groups="dscl . list /groups"
+
 # Automatically run ls after cd
 function list_all() {
   emulate -L zsh
