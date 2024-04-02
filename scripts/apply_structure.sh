@@ -27,12 +27,29 @@ SHORTCUTS=(
     "Desktop file://$HOME/Desktop/"
     "Applications file:///Applications"
 )
-IFS=$'\n'; mysides-fill "$SHORTCUTS"; unset IFS
+IFS=$'\n'
+mysides-fill "$SHORTCUTS"
+unset IFS
 
 ################################## Launchpad ##################################
 
 # Apply Launchpad organization
 apply_launchpad
+
+################################# Login Items #################################
+
+# Clear current login items
+clear_login_items
+
+# Set apps that start on login
+LOGIN_ITEMS=(
+    "/Applications/ConnectMeNow4.app"
+    "/Applications/Stats.app"
+    "/Applications/Synology Drive Client.app"
+    "/Applications/Tunnelblick.app"
+    "/Applications/WireGuard.app"
+)
+fill_login_items $LOGIN_ITEMS
 
 ################################## Launchpad ##################################
 

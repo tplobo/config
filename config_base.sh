@@ -68,6 +68,27 @@ function save_launchpad () {
     echo "Launchpad settings saved!";
 }
 
+# Fill/clear login items
+function clear_login_items () {
+    CURRENT_ITEMS=$(osascript -e 'tell application "System Events" to get the name of every login item')
+    ALL_APPS=("${(@s/, /)CURRENT_ITEMS}")
+    if [[ -n "${ALL_APPS[1]}" ]]; then
+        for APP in "${ALL_APPS[@]}"; do
+            echo "Removing from login items: $APP"
+            osascript -e "tell application \"System Events\" to delete login item \"$APP\""
+        done
+    else
+        echo "No apps to remove from login items."
+    fi
+}
+function fill_login_items () {
+    for APP in $@; do
+        NAME=${$(basename "$APP")%.*}
+        #echo "Adding to login items: $APP"
+        osascript -e "tell application \"System Events\" to make login item at end with properties {name:\"$NAME\", path:\"$APP\", hidden:false}"
+    done
+}
+
 ################################# Preferences #################################
 
 # Call `apply_preferences` or `save_preferences` and give as argument

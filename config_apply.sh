@@ -29,11 +29,9 @@ zsh scripts/apply_dotfiles.sh
 echo "Applying library..."
 zsh scripts/apply_library.sh
 
-# Create folder structure ("Clouds", "Mounts", ...)
-echo "Creating folder structure..."
+# Create computer structure ("Clouds", "Mounts", ...)
+echo "Creating computer structure..."
 zsh scripts/apply_structure.sh
-
-# Set apps that start on login (Login Items)
 
 # Set default web browser
 
