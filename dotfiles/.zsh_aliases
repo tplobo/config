@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-# Go to CONFIG project folder
+# TODO:Open VSCode and Terminal on the CONFIG project folder
 alias config="cd $HOME//Documents/VSCODE/CONFIG/"
 
 ###############################################################################
