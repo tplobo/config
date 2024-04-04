@@ -1,7 +1,7 @@
 /etc/cups
-/Library/Printers
+#/Library/Printers
 /Library/Preferences/org.cups*
 /Library/Preferences/com.apple.print*
-#~/Library/Printers
+~/Library/Printers
 ~/Library/Preferences/com.apple.print*
 ~/Library/Preferences/org.cups*
