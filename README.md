@@ -33,12 +33,14 @@ How to save configs:
 
 4. Run `zsh config_bootstrap.sh`.
 
-5. Transfer data from old computer from:
+5. Transfer data from old computer from (\* indicates file/folder is too
+   large for `save_preferences`):
 
    - Home (`~/Documents`, `~/Music`, `~/Movies`, `~/Desktop`, `~/Pictures`)
-   - Firefox profiles (`~/Library/Application Support/Firefox/Profiles`)
-   - Printer drivers (`/Library/Printers`, too large for `save_preferences`)
+   - \* Printer drivers (`/Library/Printers`)
    - iPhone/iPad backups (`~/Application Support/MobileSync/Backup`)
+   - \* Firefox profiles (`~/Library/Application Support/Firefox/Profiles`)
+   - \* Zotero data directory (e.g. `~/Documents/ZOTERO`)
    - ...
 
 6. Apply config
