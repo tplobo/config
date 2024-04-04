@@ -3,7 +3,9 @@
 # Go to CONFIG project folder
 alias config="cd $HOME//Documents/VSCODE/CONFIG/"
 
-################################### System ####################################
+###############################################################################
+# System                                                                      #
+###############################################################################
 
 # Show all paths
 function path { tr ':' '\n' <<< "$PATH"; }
@@ -57,7 +59,9 @@ alias shoutout="osascript -e 'set volume output volume 100'"
 # See: https://easyosx.net/2022/07/04/how-to-reset-mac-os-launchpad/
 alias resetlaunchpad="defaults write com.apple.dock ResetLaunchPad -bool true && killall Dock"
 
-#################################### Echo #####################################
+###############################################################################
+# Echo                                                                        #
+###############################################################################
 
 # Config messages
 red='\033[31;1m'
@@ -110,10 +114,17 @@ function echo_header() {
     printf "%0.s$CHAR_LOWER" $(seq 1 $LENGTH); echo
 }
 
-################################## Homebrew ###################################
+
+###############################################################################
+# Homebrew                                                                   #
+###############################################################################
 
 # Updates and cleans
-alias brew-up='brew update && brew upgrade && brew cleanup'
+function brew-up {
+    brew update && brew upgrade && brew cleanup
+    source $HOME/Documents/VSCODE/CONFIG/config_base.sh
+    apply_launchpad
+}
 alias brew-clean='brew autoremove && brew cleanup'
 
 # List all packages & casks
@@ -126,7 +137,9 @@ function brew-nuke {
 	brew-clean
 }
 
-################################## App Store ##################################
+###############################################################################
+# App Store                                                                   #
+###############################################################################
 # (depends on `mas` & `trash` packages from Homebrew)
 
 # Trash all apps
