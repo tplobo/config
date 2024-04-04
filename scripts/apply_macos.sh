@@ -12,7 +12,7 @@ osascript -e 'tell application "System Preferences" to quit'
 ###############################################################################
 
 # Ask computer name
-# TODO:
+# TODO: how to ask computer name for setting it later?
 
 # Set computer name (as done via System Preferences → Sharing)
 #sudo scutil --set ComputerName "0x6D746873"
@@ -113,19 +113,20 @@ apply_macos_config messages.sh
 # Kill affected applications                                                  #
 ###############################################################################
 
-for app in "Activity Monitor" \
-	"Address Book" \
-	"Calendar" \
-	"cfprefsd" \
-	"Contacts" \
-	"Dock" \
-	"Finder" \
-	"Mail" \
-	"Messages" \
-	"Photos" \
-	"Safari" \
-	"SystemUIServer" \
-	"iCal"; do
-	killall "${app}" &> /dev/null
-done
-echo "Done. Note that some of these changes require a logout/restart to take effect."
+# Kill processes
+ALL_PROCESSES=(
+	"Activity Monitor"
+	"Address Book"
+	"Calendar"
+	"cfprefsd"
+	"Contacts"
+	"Dock"
+	"Finder"
+	"Mail"
+	"Messages"
+	"Photos"
+	"Safari"
+	"SystemUIServer"
+	"iCal"
+)
+kill_processes $ALL_PROCESSES

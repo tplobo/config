@@ -1,5 +1,6 @@
-
-################################## dotfiles ###################################
+###############################################################################
+# dotfiles                                                                    #
+###############################################################################
 
 DOTFILES=(
     .zshrc_config
@@ -23,7 +24,9 @@ function save_dotfiles () {
     done
     }
 
-################################## Structure ##################################
+###############################################################################
+# Structure                                                                   #
+###############################################################################
 
 # Apply folder structure
 function apply_folders () {
@@ -89,7 +92,9 @@ function fill_login_items () {
     done
 }
 
-################################# Preferences #################################
+###############################################################################
+# Preferences                                                                 #
+###############################################################################
 
 # Call `apply_preferences` or `save_preferences` and give as argument
 # a path to a folder in which TXT files specify lists of preference
@@ -252,4 +257,17 @@ apply_preferences() {
     process_files 'sync_apply' \
         "$PATH_PREFERENCES" "$PATH_REPORT" "$PATH_CONTAINERS"
     echo ' '
+}
+
+###############################################################################
+# Kill processes                                                              #
+###############################################################################
+
+function kill_processes () {
+    local ALL_PROCESSES=("$@")
+    for PROCESS in "${ALL_PROCESSES[@]}"; do
+        killall "${PROCESS}" &> /dev/null
+    done
+    echo "Processes killed. If any changes have been applied to their \
+        settings, some may require a logout/restart to take effect."
 }

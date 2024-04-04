@@ -21,10 +21,10 @@ defaults write com.apple.AppleMultitouchTrackpad FirstClickThreshold -int 1
 defaults write com.apple.AppleMultitouchTrackpad SecondClickThreshold -int 1  
 
 # Disable App Exposè with Trackpad 3-finger swipe down
-#TODO:
+#TODO: how to disable expose with trackpad 3-finger swipe down?
 
 # Show Desktop with 4-finger spread
-#TODO:
+#TODO: how to show desktop with 4-finger spread?
 
 
 ###############################################################################
@@ -42,7 +42,7 @@ defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
 # Zoom with scroll gesture + Ctrl (^) modifier key, and follow zoom focus
-#TODO: test after system restart
+#TODO: test if scroll+Ctrl for zoom works after system restart
 defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
 defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
 defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
