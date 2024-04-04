@@ -54,4 +54,24 @@ fill_login_items $LOGIN_ITEMS
 ################################## Launchpad ##################################
 
 # Set apps in Dock
-#TODO:
+#TODO: how to set apps in Dock from command line?
+
+############################### Default Browser ###############################
+
+# For this section to work, the desired browser needs to be already installed 
+# (see `library/brew_casks.sh`) and both Terminal and Script Editor must be
+# allowed control over the computer for assistive access in:
+# System Preferences > Privacy & Security > Privacy > Accessibility.
+
+# Set Edge as default web browser
+#open -a "Microsoft Edge" --new --args --make-default-browser
+
+# Set Chrome as default web browser
+#open -a "Google Chrome" --new --args --make-default-browser
+
+# Set Firefox as default web browser
+open -a "Firefox" --new --args -silent -nosplash -setDefaultBrowser
+
+# Wait for System Events to display confirmation dialog and press "Use"
+sleep 1 
+osascript scripts/pressUseButtonInDialog.scpt

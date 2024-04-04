@@ -8,11 +8,3 @@ source config_base.sh
 # Apply dotfiles
 echo "Saving dotfiles..."
 save_items $DOTFILES
-
-
-
-
-
-
-# Erase defined functions
-

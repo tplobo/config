@@ -10,9 +10,10 @@ General:
 
 - [shell scriptting](https://gist.github.com/mrichman/f5c0c6f0c0873392c719265dfd209e12)
 - [aliases in scripts](https://unix.stackexchange.com/questions/1496/why-doesnt-my-bash-script-recognize-aliases)
+- [ZSH environment](https://apple.stackexchange.com/questions/388622/zsh-zprofile-zshrc-zlogin-what-goes-where)
+- [ZSH expansion](https://thevaluable.dev/zsh-expansion-guide-example/)
 - [macOS settings](https://github.com/tiiiecherle/osx_install_config)
 - [files saved by `mackup`](https://github.com/lra/mackup)
-- [ZSH expansion](https://thevaluable.dev/zsh-expansion-guide-example/)
 
 How to save configs:
 
@@ -23,11 +24,18 @@ How to save configs:
 
 ## Bootstrap computer ()
 
-1. I Xcode with command line tools: `xcode-select --install`.
-2. ...
-3. Run `zsh config_bootstrap.sh`.
-   ...
-4. Apply config
+1. Grant Terminal and Script Editor assistive access in:
+   `System Preferences > Privacy & Security > Privacy > Accessibility`
+
+2. Install Xcode with command line tools: `xcode-select --install`.
+
+3. ...
+
+4. Run `zsh config_bootstrap.sh`.
+
+5. ...
+
+6. Apply config
 
 ## Apply computer config
 
