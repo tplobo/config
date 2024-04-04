@@ -36,6 +36,7 @@ How to save configs:
 5. Transfer data from old computer from:
 
    - Home (`~/Documents`, `~/Music`, `~/Movies`, `~/Desktop`, `~/Pictures`)
+   - Firefox profiles (`~/Library/Application Support/Firefox/Profiles`)
    - Printer drivers (`/Library/Printers`, too large for `save_preferences`)
    - iPhone/iPad backups (`~/Application Support/MobileSync/Backup`)
    - ...
