@@ -59,3 +59,4 @@ zsh library/mas_apps.sh
 #TODO: find package to make .ICNS files
 #TODO: message about 'ConnectMeNow4'
 #TODO: message about 'MATLAB', 'WOLFRAM MATHEMATICA', ...
+#TODO: message about 'https://worldographer.com/'

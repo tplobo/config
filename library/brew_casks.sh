@@ -4,7 +4,7 @@ brew install --cask font-meslo-lg-nerd-font       # (for `p10k`)
 
 ################################## Essentials #################################
 
-#brew install --cask 1password
+brew install --cask 1password
 brew install --cask firefox
 brew install --cask vlc
 
@@ -33,11 +33,11 @@ brew install --cask microsoft-teams
 #brew install --cask corretto8              # Amazon Java Developer's Kit 8
 
 # Git
-#brew install --cask sourcetree
+brew install --cask sourcetree
 
 # Coding
 brew install --cask macvim
-#brew install --cask visual-studio-code
+brew install --cask visual-studio-code
 brew install --cask mysides                 # Change Finder Sidebar shortcuts
 
 ########################### File & Drive Management ###########################
@@ -87,8 +87,9 @@ brew install --cask synology-drive
 
 ################################## Downloads ##################################
 
-#TODO: brew install --cask jdownloader --appdir=$LIBRARY_PATH
+brew install --cask jdownloader
 brew install --cask qbittorrent-lt20
+# utorrent classic (app): https://www.utorrent.com
 
 #################################### Games ####################################
 

@@ -1,0 +1,2 @@
+~/Library/Application Support/uTorrent Web/resume.dat
+~/Library/Application Support/uTorrent Web/settings.dat
