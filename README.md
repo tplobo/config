@@ -33,7 +33,12 @@ How to save configs:
 
 4. Run `zsh config_bootstrap.sh`.
 
-5. ...
+5. Transfer data from old computer from:
+
+   - Home (`~/Documents`, `~/Music`, `~/Movies`, `~/Desktop`, `~/Pictures`)
+   - Printer drivers (`/Library/Printers`, too large for `save_preferences`)
+   - iPhone/iPad backups (`~/Application Support/MobileSync/Backup`)
+   - ...
 
 6. Apply config
 
