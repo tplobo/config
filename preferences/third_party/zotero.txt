@@ -1,1 +1,2 @@
 #~/Documents/ZOTERO
+~Library/Application Support/Zotero/Profiles
