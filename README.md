@@ -46,6 +46,7 @@ How to save configs:
    - iPhone/iPad backups (`~/Application Support/MobileSync/Backup`)
    - Firefox profiles (`~/Library/Application Support/Firefox/Profiles`)
    - Zotero data directory (e.g. `~/Documents/ZOTERO`)
+   - JDownloader directory (`/Applications/JDownloader 2.0`)
    - ...
 
 6. Apply config

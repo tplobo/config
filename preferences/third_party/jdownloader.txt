@@ -1,1 +1,1 @@
-/Applications/JDownloader 2.0/cfg
+#/Applications/JDownloader 2.0
