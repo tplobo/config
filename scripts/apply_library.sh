@@ -26,10 +26,8 @@ export HOMEBREW_NO_INSTALL_CLEANUP=1
 brew tap homebrew/cask-fonts
 brew tap homebrew/cask-versions
 
-# Install Homebrew packages
+# Install Homebrew packages & casks
 zsh library/brew_packages.sh
-
-# Install Homebrew casks
 zsh library/brew_casks.sh
 
 # Apply configurations based on Homebrew
@@ -52,11 +50,15 @@ mas upgrade
 # Apply Mac App Store (depends on `mas` from Homebrew)
 zsh library/mas_apps.sh
 
+################################## Direct URLs ################################
+
+# Notify user
+echo "Installing apps from direct URLs..."
+
+# Install apps directly from URLs
+zsh library/url_dmg.sh
+
 ############################# Manual Installation #############################
 
-#TODO: message about 'https://www.mediahuman.com/video-converter/5/'
-#TODO: message about 'Synology Active Backup for Business'
 #TODO: find package to make .ICNS files
-#TODO: message about 'ConnectMeNow4'
 #TODO: message about 'MATLAB', 'WOLFRAM MATHEMATICA', ...
-#TODO: message about 'https://worldographer.com/'

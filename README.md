@@ -32,13 +32,13 @@ How to save configs:
 1. Grant Terminal and Script Editor assistive access in:
    `System Preferences > Privacy & Security > Privacy > Accessibility`
 
-2. Install Xcode with command line tools: `xcode-select --install`.
+1. Install Xcode with command line tools: `xcode-select --install`.
 
-3. ...
+1. ...
 
-4. Run `zsh config_bootstrap.sh`.
+1. Run `zsh config_bootstrap.sh`.
 
-5. Transfer data manually from old computer (_i.e._ file/folder is too
+1. Transfer data manually from old computer (_i.e._ file/folder is too
    large for `save_preferences`):
 
    - Home (`~/Documents`, `~/Music`, `~/Movies`, `~/Desktop`, `~/Pictures`)
@@ -49,11 +49,13 @@ How to save configs:
    - JDownloader directory (`/Applications/JDownloader 2.0`)
    - ...
 
-6. Apply config
+1. Apply config
 
 ### Apply computer config
 
-Run `zsh config_apply.sh`. (turn into alias)
+1. Update links for app installation from urls in `library/url_dmg.sh`
+
+1. Run `zsh config_apply.sh`. (turn into alias)
 
 ### Save computer config
 
