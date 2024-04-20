@@ -22,6 +22,7 @@ brew install mas
 
 # Git
 brew install bfg                # Big Files git repository cleaner
+brew install git-filter-repo    # Filter Repo git repository filter
 brew install git-lfs            # Git LFS
 
 # Java
