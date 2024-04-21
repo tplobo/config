@@ -71,6 +71,19 @@ function save_launchpad () {
     echo "Launchpad settings saved!";
 }
 
+# Apply/save dock organization
+DOCK_DB="$HOME/Library/Preferences/com.apple.dock.plist"
+function apply_dock () {
+    yes | cp -rf "settings/dock/" $DOCK_DB
+    echo "Dock settings applied!";
+    killall Dock
+}
+function save_dock () {
+    yes | cp -rf $DOCK_DB "settings/dock/"
+    #echo $LAUNCHPAD_DB
+    echo "Dock settings saved!";
+}
+
 # Fill/clear login items
 function clear_login_items () {
     CURRENT_ITEMS=$(osascript -e 'tell application "System Events" to get the name of every login item')

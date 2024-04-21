@@ -31,10 +31,13 @@ IFS=$'\n'
 mysides-fill "$SHORTCUTS"
 unset IFS
 
-################################## Launchpad ##################################
+############################### Launchpad & Dock ##############################
 
 # Apply Launchpad organization
 apply_launchpad
+
+# Apply Dock organization
+apply_dock
 
 ################################# Login Items #################################
 
