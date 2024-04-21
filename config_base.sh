@@ -11,13 +11,13 @@ DOTFILES=(
     .zsh_aliases
 	.zsh_syntax
 )
-function apply_dotfiles () {
+function apply_dotfiles {
     for FILE in $@; do
         yes | cp -rf "dotfiles/"$FILE "$HOME/"$FILE
         echo $FILE" applied!";
     done
     }
-function save_dotfiles () {
+function save_dotfiles {
     for FILE in $@; do
         yes | cp -rf "$HOME/"$FILE "dotfiles/"$FILE
         echo $FILE" saved!";
@@ -57,33 +57,6 @@ function mysides-nuke {
     done <<< "$(mysides list)"
 }
 
-# Apply/save launchpad organization
-# See: https://github.com/blacktop/lporg
-LAUNCHPAD_DB=$TMPDIR"../0/com.apple.dock.launchpad/db"
-function apply_launchpad () {
-    yes | cp -rf "settings/launchpad/db/" $LAUNCHPAD_DB"/"
-    echo "Launchpad settings applied!";
-    killall Dock
-}
-function save_launchpad () {
-    yes | cp -rf $LAUNCHPAD_DB "settings/launchpad"
-    #echo $LAUNCHPAD_DB
-    echo "Launchpad settings saved!";
-}
-
-# Apply/save dock organization
-DOCK_DB="$HOME/Library/Preferences/com.apple.dock.plist"
-function apply_dock () {
-    yes | cp -rf "settings/dock/" $DOCK_DB
-    echo "Dock settings applied!";
-    killall Dock
-}
-function save_dock () {
-    yes | cp -rf $DOCK_DB "settings/dock/"
-    #echo $LAUNCHPAD_DB
-    echo "Dock settings saved!";
-}
-
 # Fill/clear login items
 function clear_login_items () {
     CURRENT_ITEMS=$(osascript -e 'tell application "System Events" to get the name of every login item')
@@ -103,6 +76,38 @@ function fill_login_items () {
         #echo "Adding to login items: $APP"
         osascript -e "tell application \"System Events\" to make login item at end with properties {name:\"$NAME\", path:\"$APP\", hidden:false}"
     done
+}
+
+
+###############################################################################
+# Settings                                                                    #
+###############################################################################
+
+# Apply/save launchpad organization
+# See: https://github.com/blacktop/lporg
+LAUNCHPAD_DB=$TMPDIR"../0/com.apple.dock.launchpad/db"
+function apply_launchpad {
+    yes | cp -rf "settings/launchpad/db/" $LAUNCHPAD_DB"/"
+    echo "Launchpad settings applied!";
+    killall Dock
+}
+function save_launchpad {
+    yes | cp -rf $LAUNCHPAD_DB "settings/launchpad"
+    #echo $LAUNCHPAD_DB
+    echo "Launchpad settings saved!";
+}
+
+# Apply/save dock organization
+DOCK_DB="$HOME/Library/Preferences/com.apple.dock.plist"
+function apply_dock {
+    yes | cp -rf "settings/dock/" $DOCK_DB
+    echo "Dock settings applied!";
+    killall Dock
+}
+function save_dock {
+    yes | cp -rf $DOCK_DB "settings/dock/"
+    #echo $LAUNCHPAD_DB
+    echo "Dock settings saved!";
 }
 
 ###############################################################################
