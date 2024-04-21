@@ -55,6 +55,16 @@ alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/La
 alias shutup="osascript -e 'set volume output muted true'"
 alias shoutout="osascript -e 'set volume output volume 100'"
 
+# Add spacers to Dock
+dock-spacer-app() {
+    defaults write com.apple.dock persistent-apps -array-add '{tile-type="spacer-tile"; tile-data={};}'
+    killall Dock
+}
+dock-spacer-other() {
+    defaults write com.apple.dock persistent-others -array-add '{tile-data={}; tile-type="spacer-tile";}'
+    killall Dock
+}
+
 # Reset LaunchPad to default settings
 # See: https://easyosx.net/2022/07/04/how-to-reset-mac-os-launchpad/
 alias resetlaunchpad="defaults write com.apple.dock ResetLaunchPad -bool true && killall Dock"

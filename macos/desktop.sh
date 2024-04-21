@@ -45,12 +45,6 @@ defaults write com.apple.dock showhidden -bool true
 # Show recent applications in Dock (true | false)
 defaults write com.apple.dock show-recents -bool true
 
-#TODO: how to read array of applications in Dock and add single spacers?
-# Read dock applications-array and add single spacer to the left
-#defaults write com.apple.dock persistent-apps -array-add '{tile-type="spacer-tile"; tile-data={};}'
-# Read dock others-array and add single spacer to the right
-#defaults write com.apple.dock persistent-others -array-add '{tile-data={}; tile-type="spacer-tile";}'
-
 ###############################################################################
 # Dashboard                                                                   #
 ###############################################################################
