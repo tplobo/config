@@ -10,7 +10,7 @@ CONFIGS_FULL=(
     #.zsh_essentials    # Unnecessary if using .zsh_omz
     .zsh_omz
     .zsh_aliases
-	#.zsh_syntax        # Must be last (Homebrew package)
+	.zsh_syntax         # Must be last (Homebrew package)
 )
 CONFIGS_SLIM=(
     #.zsh_p10k
