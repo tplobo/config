@@ -133,7 +133,8 @@ function echo_header() {
 alias git-size="git gc && du -sh .git/"
 
 # List all files in LFS history of repository in current directory
-alias git-lfs-list="git lfs ls-files --all -l"
+# See: https://github.com/git-lfs/git-lfs/blob/main/docs/man/git-lfs-ls-files.adoc
+alias git-list-lfs="git lfs ls-files --all --long --size"
 
 
 ###############################################################################
