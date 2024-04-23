@@ -136,6 +136,13 @@ alias git-size="git gc && du -sh .git/"
 # See: https://github.com/git-lfs/git-lfs/blob/main/docs/man/git-lfs-ls-files.adoc
 alias git-list-lfs="git lfs ls-files --all --long --size"
 
+# List all files in history of repository in current directory, sort by size
+# See: https://gist.github.com/magnetikonline/dd5837d597722c9c2d5dfa16d8efe5b9#file-gitlistobjectbysize-sh
+function git-list-size {
+    # Does not include LFS files
+	git rev-list --all | xargs -n1 git ls-tree --long -r | sort -k3 | uniq | sort -nk4
+}
+
 
 ###############################################################################
 # Homebrew                                                                   #
