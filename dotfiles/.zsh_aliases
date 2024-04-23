@@ -143,8 +143,8 @@ alias git-lfs-list="git lfs ls-files --all -l"
 # Updates and cleans
 function brew-up {
     brew update && brew upgrade && brew cleanup
-    source $HOME/Documents/VSCODE/CONFIG/config_base.sh
-    apply_launchpad
+    #TODO:source $HOME/Documents/VSCODE/CONFIG/config_base.sh
+    #TODO:apply_launchpad
 }
 alias brew-clean='brew autoremove && brew cleanup'
 
