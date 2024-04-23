@@ -129,6 +129,16 @@ function echo_header() {
 # Git                                                                         #
 ###############################################################################
 
+# Backup repository in current directory including all history and LFS
+# (`--mirror` avoided because it lacks work-tree, so cannot checkout)
+# See: https://stackoverflow.com/questions/74981712/clone-git-repo-with-all-lfs-objects
+# See: https://stackoverflow.com/questions/62483417/can-i-checkout-branch-from-local-git-mirror-clone
+function git-backup() {
+    REMOTE=$1
+    git clone $REMOTE .
+    git -C . lfs fetch --all
+}
+
 # Measure full size of git repository in current directory
 alias git-size="git gc && du -sh .git/"
 
