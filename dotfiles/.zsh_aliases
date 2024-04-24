@@ -139,6 +139,17 @@ function git-backup() {
     git -C . lfs fetch --all
 }
 
+# Clean repository in current directory with complete prune 
+function git-prune() {
+    git reflog expire --all --expire=now 
+    git lfs prune
+    git gc --aggressive --prune=now
+}
+
+# Recursively find all configuration files in directory
+alias git-list-gitignore="find . -type f -name '.gitignore'"
+alias git-list-gitattributes="find . -type f -name '.gitattributes'"
+
 # Measure full size of git repository in current directory
 alias git-size="git gc && du -sh .git/"
 
