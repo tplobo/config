@@ -41,12 +41,5 @@ defaults write NSGlobalDomain AppleFirstWeekday -array "gregorian = 1"
 
 # Set clock to 24h
 defaults write NSGlobalDomain AppleICUForce12HourTime -bool false
-
-# Analog clock in menu bar (true | false)
-defaults write com.apple.menuextra.clock IsAnalog -bool false
-
-# Flash the time separators, the ":" in HH:MM (true | false)
-defaults write com.apple.menuextra.clock FlashDateSeparators -bool false
-    
     
     
