@@ -21,33 +21,33 @@ brew install zsh-syntax-highlighting
 brew install mas
 
 # Git
-brew install bfg                # Big Files git repository cleaner
-brew install git-filter-repo    # Filter Repo git repository filter
-brew install git-lfs            # Git LFS
+brew install bfg                    # Big Files git repository cleaner
+brew install git-filter-repo        # Filter Repo git repository filter
+brew install git-lfs                # Git LFS
 
 # Java
 brew install java
-brew install node               # JavaScript runtime environment
+brew install node                   # JavaScript runtime environment
 #brew install openjdk@8
 
 # Builders and compilers
 brew install cmake
-#brew install gcc@10            # (not compatible with Apple Silicon)
+#brew install gcc@10                # (not compatible with Apple Silicon)
 
 # Trash (https://hasseg.org/trash/)
-brew install trash              # Command to send items to trash
+brew install trash                  # Command to send items to trash
 
 # Others
-brew install pinentry-mac       # PINEntry (package with password dialogs)
-brew install open-mpi           # Open Message Passing Interface
+brew install pinentry-mac           # PINEntry (package with password dialogs)
+brew install open-mpi               # Open Message Passing Interface
 
 ########################### File & Drive Management ###########################
 
 ################################# Networking ##################################
 
 # Packages to measure connection speed (https://iperf.fr)
-brew install iperf              # iperf2
-#brew install iperf3            # iperf3
+brew install iperf                  # iperf2
+#brew install iperf3                # iperf3
 
 ################################### Clouds ####################################
 
@@ -57,6 +57,7 @@ brew install iperf              # iperf2
 
 ################################### Hardware ##################################
 
+#TODO: brew install only-switch     # Custom menu bar buttons
 
 
 
