@@ -13,13 +13,13 @@ DOTFILES=(
 )
 function apply_dotfiles {
     for FILE in $@; do
-        yes | cp -rf "dotfiles/"$FILE "$HOME/"$FILE
+        yes | cp -rf "dotfiles/"$FILE "$HOME/"
         echo $FILE" applied!";
     done
     }
 function save_dotfiles {
     for FILE in $@; do
-        yes | cp -rf "$HOME/"$FILE "dotfiles/"$FILE
+        yes | cp -rf "$HOME/"$FILE "dotfiles/"
         echo $FILE" saved!";
     done
     }
