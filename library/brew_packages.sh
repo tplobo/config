@@ -24,6 +24,7 @@ brew install mas
 brew install bfg                    # Big Files git repository cleaner
 brew install git-filter-repo        # Filter Repo git repository filter
 brew install git-lfs                # Git LFS
+#TODO: brew install git-subrepo     # Git Subrepo (subtree/submodule alternative)
 
 # Java
 brew install java
