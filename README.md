@@ -57,6 +57,20 @@ How to save configs:
 
 1. Run `zsh config_apply.sh`. (turn into alias)
 
+1. Change things that cannot be set from script:
+
+- Hide "Now Playing" icon in Menu Bar by selecting:
+  `System Settings > Control Center > Now Playing > Don't Show`
+
+- Install command `code` by opening VSCode, opening the Command Palette
+  and running:
+  `> Shell Command: Install 'code' command in PATH`
+
+- Install command `stree` by opening SourceTree and running:
+  `Sourcetree > Install Command Line Tools`
+
+- ...
+
 ### Save computer config
 
 Run `zsh config_save.sh`. (turn into alias)
