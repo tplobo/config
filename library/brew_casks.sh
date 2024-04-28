@@ -39,6 +39,7 @@ brew install --cask sourcetree
 brew install --cask macvim
 brew install --cask visual-studio-code
 brew install --cask mysides                 # Change Finder Sidebar shortcuts
+brew install --cask hammerspoon             # MacOS automation with Lua
 
 ########################### File & Drive Management ###########################
 
