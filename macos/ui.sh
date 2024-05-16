@@ -107,8 +107,8 @@ defaults write com.apple.menuextra.battery ShowPercent -string "YES"
 
 # Reduce spacing of icons in menu bar (takes effect after logout/login)
 # Default is 8
-defaults -currentHost write -globalDomain NSStatusItemSpacing -int 6
-defaults -currentHost write -globalDomain NSStatusItemSelectionPadding -int 6
+defaults -currentHost write -globalDomain NSStatusItemSpacing -int 4
+defaults -currentHost write -globalDomain NSStatusItemSelectionPadding -int 4
 
 # Show the type of keyboard layout in the menu bar (true | false)
 defaults write com.apple.TextInputMenu visible -bool false
