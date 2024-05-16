@@ -113,9 +113,10 @@ or, if in SourceTree ([see this](https://stackoverflow.com/questions/39928132/gi
 2. right-click `generic`, select "Rebase..."
 
 Afterwards, if `computer-branch` had any children branches, checkout into each
-child branch and [apply a rebase with `--onto`](https://stackoverflow.com/questions/45153926/git-rebase-and-children-branches), using the commit ID of that child's old
-parent in the original history (old-parent), and the commit ID of the
-equivalent commit in the new history (new-parent):
+child branch and [apply a rebase with `--onto`](https://stackoverflow.com/questions/45153926/git-rebase-and-children-branches),
+using the commit ID of that child's old parent in the original history
+(old-parent), and the commit ID of the equivalent commit in the new history
+(new-parent):
 
 ```
 git rebase --onto (new-parent) (old-parent)
