@@ -1,3 +1,9 @@
+
+# Default location for installing applications
+export LIBRARY_PATH="/Applications"
+
+#TODO: create alias of Feedback Assistant app in library
+
 ################################## Homebrew ###################################
 
 # Notify user
@@ -5,7 +11,6 @@ echo "Installing Homebrew packages and casks..."
 
 # Install or update Homebrew
 # See: https://gist.github.com/mrichman/f5c0c6f0c0873392c719265dfd209e12
-export LIBRARY_PATH="/Applications"
 export HOMEBREW_CASK_OPTS="--appdir=$LIBRARY_PATH"
 if hash brew &>/dev/null; then
 	echo "Homebrew already installed. Getting updates..."

@@ -1,2 +1,2 @@
-~/Library/Containers/com.microsoft.rdc.mac
+~/Library/Containers/com.microsoft.rdc.macos
 ~/Library/Containers/Microsoft Remote Desktop
