@@ -7,7 +7,7 @@ A screenshot of my shell prompt:
 
 ## Introduction
 
-### Studied strategies
+### Studied strategies and references
 
 General:
 
@@ -15,8 +15,12 @@ General:
 - [aliases in scripts](https://unix.stackexchange.com/questions/1496/why-doesnt-my-bash-script-recognize-aliases)
 - [ZSH environment](https://apple.stackexchange.com/questions/388622/zsh-zprofile-zshrc-zlogin-what-goes-where)
 - [ZSH expansion](https://thevaluable.dev/zsh-expansion-guide-example/)
-- [macOS settings](https://github.com/tiiiecherle/osx_install_config)
 - [files saved by `mackup`](https://github.com/lra/mackup)
+
+MacOS:
+
+- [migration](https://www.intego.com/mac-security-blog/setting-up-a-new-mac-should-you-migrate-or-do-a-clean-installation/)
+- [macOS settings](https://github.com/tiiiecherle/osx_install_config)
 
 How to save configs:
 
