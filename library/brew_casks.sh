@@ -24,6 +24,8 @@ brew install --cask skype
 brew install --cask zoom
 brew install --cask discord
 brew install --cask microsoft-teams
+#TODO: brew install --cask signal
+#TODO: brew install --cask telegram
 
 ############################### Developer Tools ###############################
 
