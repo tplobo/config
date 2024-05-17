@@ -31,7 +31,7 @@ alias rls-la="find . -exec stat -f '%Sp%t%Su%t%Sg%t%N' {} +"
 function dirdiff() {
     FILECOUNT=$(find $1 -type f | wc -l | xargs)
     TIMESTAMP=$(date +%Y%m%d%H%M%S)
-    LOG="$HOME/Desktop/logfile_$TIMESTAMP.txt"
+    LOG="$HOME/Desktop/dirdiff_log_$TIMESTAMP.txt"
     echo "Comparing directories $1 and $2" > $LOG
     diff -rqs $1 $2 | pv -l -s $FILECOUNT | grep -v "^Files .* identical$" >> $LOG
 }
