@@ -27,6 +27,12 @@ fi
 alias rls="find . -exec stat -f '%N' {} +"
 alias rls-la="find . -exec stat -f '%Sp%t%Su%t%Sg%t%N' {} +"
 
+# Compare two directories with progress bar (requires `pv` package)
+function dirdiff() {
+    FILECOUNT=$(find $1 -type f | wc -l | xargs)
+    diff -rqs $1 $2 | pv -l -s $FILECOUNT > "$HOME/Desktop/logfile.txt"
+}
+
 # System info for reporting issues
 function sysinfo {
 		    sw_vers;

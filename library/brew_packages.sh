@@ -43,6 +43,7 @@ brew install trash                  # Command to send items to trash
 # Others
 brew install pinentry-mac           # PINEntry (package with password dialogs)
 brew install open-mpi               # Open Message Passing Interface
+brew install pv                     # Pipe Viewer
 
 ########################### File & Drive Management ###########################
 
