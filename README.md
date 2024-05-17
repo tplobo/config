@@ -52,7 +52,12 @@ How to save configs:
    - Firefox profiles (`~/Library/Application Support/Firefox/Profiles`)
    - Zotero data directory (e.g. `~/Documents/ZOTERO`)
    - JDownloader directory (`/Applications/JDownloader 2.0`)
+   - OpenEmu directory (`~/Library/Application Support/OpenEmu`)
    - ...
+
+(Some manual data transfer can be found also inside each respective folder in
+the `containers` directory, when `save_preferences` failed and could not be
+re-run.)
 
 1. Apply config
 
