@@ -28,6 +28,7 @@ alias rls="find . -exec stat -f '%N' {} +"
 alias rls-la="find . -exec stat -f '%Sp%t%Su%t%Sg%t%N' {} +"
 
 # Compare two directories with progress bar (requires `pv` package)
+# See: https://unix.stackexchange.com/questions/111251/compare-massive-directories-with-progress-report
 function dirdiff() {
     FILECOUNT=$(find $1 -type f | wc -l | xargs)
     TIMESTAMP=$(date +%Y%m%d%H%M%S)
