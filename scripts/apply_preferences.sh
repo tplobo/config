@@ -28,7 +28,7 @@ ALL_PROCESSES=(
 	"Photos"
 	"Safari"
 	"SystemUIServer"      	# Menu bar and GUI manager
-	"Terminal"
+	#"Terminal" 			# avoid Terminal being killed by the script itself
 	"Tunnelblick"
 	"Wireguard"
 )

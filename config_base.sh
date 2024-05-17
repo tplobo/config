@@ -1,3 +1,5 @@
+source dotfiles/.zsh_aliases
+
 ###############################################################################
 # dotfiles                                                                    #
 ###############################################################################
@@ -130,7 +132,7 @@ validate_directory() {
 paths_to_containers_and_report() {
     local PATH_PREFERENCES="$1"
     local REPORT_TYPE="$2"
-    local CONFIG_DIR="$HOME/Documents/VSCODE/CONFIG"
+    local CONFIG_DIR=$(pwd) # originally: "$HOME/Documents/VSCODE/CONFIG"
     local PATH_CONTAINERS="$CONFIG_DIR/$PATH_PREFERENCES/containers"
     local PATH_REPORT="$PATH_CONTAINERS/${REPORT_TYPE}_preferences_rsyncLOG.txt"
     echo "$PATH_CONTAINERS" "$PATH_REPORT"
@@ -169,6 +171,7 @@ sync_preference() {
             "$SOURCE" "$DESTINATION" 2>>$PATH_REPORT\
             || echo_red "Sync partially or completely failed: $SOURCE"
         #sudo chown $(id -un) "$DESTINATION" # change ownership to user
+        #TODO: check how to only call this if the following is necessary:
         sudo chgrp -R config "$DESTINATION" # change the group to 'config'
         sudo chmod -R 775 "$DESTINATION" # give read/write permissions to group
         find "$DESTINATION" -type d -exec sudo chmod g+s {} \; # setgid
