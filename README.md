@@ -21,6 +21,7 @@ MacOS:
 
 - [migration](https://www.intego.com/mac-security-blog/setting-up-a-new-mac-should-you-migrate-or-do-a-clean-installation/)
 - [macOS settings](https://github.com/tiiiecherle/osx_install_config)
+- [`dot_clean` to clean turd dot files in external drives](https://apple.stackexchange.com/a/163498)
 
 How to save configs:
 
