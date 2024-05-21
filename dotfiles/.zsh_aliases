@@ -30,11 +30,11 @@ alias rls-la="find . -exec stat -f '%Sp%t%Su%t%Sg%t%N' {} +"
 # Compare two directories with progress bar (requires `pv` package)
 # See: https://unix.stackexchange.com/questions/111251/compare-massive-directories-with-progress-report
 function dirdiff() {
-    FILECOUNT=$(find $1 -type f | wc -l | xargs)
+    FILECOUNT=$(find "$1" -type f | wc -l | xargs)
     TIMESTAMP=$(date +%Y%m%d%H%M%S)
     LOG="$HOME/Desktop/dirdiff_log_$TIMESTAMP.txt"
     echo "Comparing directories $1 and $2" > $LOG
-    diff -rqs $1 $2 | pv -l -s $FILECOUNT | grep -v "^Files .* identical$" >> $LOG
+    diff -rqs "$1" "$2" | pv -l -s $FILECOUNT | grep -v "^Files .* identical$" >> $LOG
 }
 
 # System info for reporting issues
