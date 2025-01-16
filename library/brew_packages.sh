@@ -5,6 +5,9 @@
 # Windows environment
 #TODO: brew install wine-stable
 
+# 1Password Command-Line tools
+brew install 1password-cli
+
 ################################# Office Tools ################################
 
 #brew install pandoc               # Document converter
