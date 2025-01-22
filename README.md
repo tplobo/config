@@ -59,6 +59,14 @@ How to save configs:
 the `containers` directory, when `save_preferences` failed and could not be
 re-run.)
 
+1. Start Apple Music and select previous Library (`~Music/.../<file>.itl`) to
+   import music from past computer. Library should had been consolidated.
+   Resolve potential issues:
+
+   - [backup](https://discussions.apple.com/docs/DOC-10831)
+   - [corruption](https://discussions.apple.com/docs/DOC-6561)
+   - [permissions](https://discussions.apple.com/docs/DOC-13743)
+
 1. Apply config
 
 ### Apply computer config
