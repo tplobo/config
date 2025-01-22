@@ -60,7 +60,7 @@ brew install --cask handbrake
 brew install --cask mediahuman-audio-converter
 
 # File management
-brew install --cask filebot
+#brew install --cask filebot --no-quarantine  # (requires license)
 
 # External disks
 brew install --cask android-file-transfer
@@ -75,6 +75,7 @@ brew install --cask --appdir=$MAPS omnidisksweeper      # https://www.omnigroup.
 ################################## Networking #################################
 
 brew install --cask tunnelblick
+brew install --cask teamviewer
 
 ################################### Clouds ####################################
 
