@@ -97,9 +97,12 @@ brew install --cask qbittorrent-lt20
 
 #################################### Games ####################################
 
-brew install --cask openemu
-brew install --cask epic-games
-brew install --cask steam
+GAMES=$LIBRARY_PATH'/Games'
+sudo mkdir -p $GAMES
+brew install --cask --appdir=$GAMES openemu
+brew install --cask --appdir=$GAMES epic-games
+brew install --cask --appdir=$GAMES steam
+brew install --cask --appdir=$GAMES mythic
 
 ################################### Hardware ##################################
 
