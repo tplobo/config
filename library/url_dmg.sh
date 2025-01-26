@@ -1,6 +1,7 @@
 # Function for direct download and installation of .dmg file
 install_from_url () {
     local URL=$(echo $1 | tr -d ' ')
+    local INSTALL_DIR=${2:-$LIBRARY_PATH}
     local TEMP_DMG=$(mktemp -t download.dmg)
 
     echo ' '
@@ -13,13 +14,13 @@ install_from_url () {
     local FOUND=false
     for FILE in "$TEMP_MOUNT"/*; do
         if [[ $FILE == *.pkg ]]; then
-            echo "Installing $FILE in: $LIBRARY_PATH"
-            sudo installer -pkg "$FILE" -target $LIBRARY_PATH
+            echo "Installing $FILE in: $INSTALL_DIR"
+            sudo installer -pkg "$FILE" -target $INSTALL_DIR
             FOUND=true
             break
         elif [[ $FILE == *.app ]]; then
-            echo "Installing $FILE in: $LIBRARY_PATH"
-            cp -R "$FILE" $LIBRARY_PATH
+            echo "Installing $FILE in: $INSTALL_DIR"
+            cp -R "$FILE" $INSTALL_DIR
             FOUND=true
             break
         fi
@@ -41,8 +42,10 @@ install_from_url () {
 ################################ Worldographer ################################
 # https://worldographer.com/
 
+GAMES=$LIBRARY_PATH'/Games'
+sudo mkdir -p $GAMES
 URL="https://worldographer.com/releases/Worldographer-1.74.57.dmg"
-install_from_url $URL
+install_from_url $URL $GAMES
 
 ################################ ConnectMeNow4 ################################
 # https://www.tweaking4all.com/software/macosx-software/connectmenow-v4
