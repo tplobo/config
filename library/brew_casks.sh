@@ -111,4 +111,8 @@ brew install --cask logi-options-plus
 brew install --cask ubiquiti-unifi-controller
 brew install --cask jabra-direct
 
+# External monitors
+brew install --cask lg-onscreen-control
+brew install --cask ddpm
+
 #TODO:brew install --cask dozer         # Custom menu bar buttons
