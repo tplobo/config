@@ -34,7 +34,7 @@ brew install git-lfs                # Git LFS
 # Java
 brew install java
 brew install node                   # JavaScript runtime environment
-#brew install openjdk@8
+#brew install openjdk@8             # (not compatible with Apple Silicon)
 
 # Builders and compilers
 brew install cmake
