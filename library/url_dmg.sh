@@ -47,6 +47,7 @@ sudo mkdir -p $GAMES
 URL="https://worldographer.com/releases/Worldographer-1.74.57.dmg"
 install_from_url $URL $GAMES
 
+
 ################################ ConnectMeNow4 ################################
 # https://www.tweaking4all.com/software/macosx-software/connectmenow-v4
 
@@ -60,6 +61,7 @@ install_from_url $URL
 #    ConnectMeNow4-v4.0.16-macOS-x86-64.dmg"
 #install_from_url $URL
 
+
 ################## Synology Active Backup for Business Agent ##################
 # https://www.synology.com/en-global/support/download/DS920+?version=7.2
 
@@ -69,8 +71,16 @@ URL="https://global.synologydownload.com/download/Utility/\
     ?model=DS920%2B&bays=4&dsm_version=7.2.1&build_number=69057"
 install_from_url $URL
 
+
 ######################### Media Human Video Converter #########################
 # https://www.mediahuman.com/video-converter/5/
 
 URL="https://www.mediahuman.com/download/MHVideoConverter.dmg"
 install_from_url $URL
+
+
+################################ TotalSpaces3 #################################
+# https://discuss.binaryage.com/t/total-spaces-3-on-macos-13-ventura/8457/3
+
+#URL="https://downloads.binaryage.com/TotalSpaces3-0.9.125.dmg"
+#install_from_url $URL
