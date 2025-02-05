@@ -56,3 +56,10 @@ defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
 
 # Stop iTunes from responding to the keyboard media keys
 #launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null
+
+# Set Fn/Globe (🌐) key usage
+#defaults write com.apple.HIToolbox AppleFnUsageType -int 0 # Do Nothing
+#defaults write com.apple.HIToolbox AppleFnUsageType -int 1 # Change Input Source
+defaults write com.apple.HIToolbox AppleFnUsageType -int 2 # Show Emoji & Symbols
+#defaults write com.apple.HIToolbox AppleFnUsageType -int 3 # Dictation
+
