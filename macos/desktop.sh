@@ -59,6 +59,16 @@ defaults write com.apple.dock show-recents -bool true
 defaults write com.apple.dock mru-spaces -bool false
 
 ###############################################################################
+# Windows                                                                     #
+###############################################################################
+
+# Disable "Drag windows to screen edges to tile" (true | false)
+defaults write com.apple.WindowManager EnableTilingByEdgeDrag -bool false
+
+# Disable "Drag windows to menu bar to fill screen" (true | false)
+defaults write com.apple.WindowManager EnableTopTilingByEdgeDrag -bool false
+
+###############################################################################
 # Launchpad & Mission Control                                                 #
 ###############################################################################
 
