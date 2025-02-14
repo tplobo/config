@@ -52,6 +52,9 @@ brew install pv                     # Pipe Viewer
 
 ########################### File & Drive Management ###########################
 
+# Run S.M.A.R.T. reports on external drives
+brew install smartmontools
+
 ################################# Networking ##################################
 
 # Packages to measure connection speed (https://iperf.fr)
