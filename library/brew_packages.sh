@@ -53,7 +53,9 @@ brew install pv                     # Pipe Viewer
 ########################### File & Drive Management ###########################
 
 # Run S.M.A.R.T. reports on external drives
+# https://blog.shadypixel.com/monitoring-hard-drive-health-on-linux-with-smartmontools/
 brew install smartmontools
+
 
 ################################# Networking ##################################
 
