@@ -8,6 +8,8 @@ install_from_url () {
     echo "Direct download from: $URL"
     curl -Lo $TEMP_DMG $URL
 
+    #TODO: Check if the file is a .dmg. If a .zip, extract it and find .dmg
+
     echo "Mount: $TEMP_DMG"
     local TEMP_MOUNT=$(hdiutil attach -nobrowse -noautoopen $TEMP_DMG | awk -F '\t' 'END {print $NF}')
 
@@ -78,6 +80,23 @@ install_from_url $URL
 URL="https://www.mediahuman.com/download/MHVideoConverter.dmg"
 install_from_url $URL
 
+############################## SAT-SMART-Driver ###############################
+# Kernel driver to allow access to S.M.A.R.T. data from external drives:
+# https://github.com/kasbert/OS-X-SAT-SMART-Driver
+
+# Install from original repository:
+#URL="https://github.com/kasbert/OS-X-SAT-SMART-Driver/archive/refs/tags/\
+#    REL_0_10.zip"
+#install_from_url $URL
+
+# Install from BinaryFruit (signed DMG):
+# https://binaryfruit.com/drivedx/usb-drive-support#install-instructions
+URL="https://binaryfruit.com/download/mac/satsmartdriver/\
+    SATSMARTDriver-0.10.3.macOS11_and_AppleSilicon.zip"
+install_from_url $URL
+
+# If all fails, install SAT SMART Driver from DriveDx and uninstall DriveDx:
+#brew install --cask drivedx
 
 ################################ TotalSpaces3 #################################
 # https://discuss.binaryage.com/t/total-spaces-3-on-macos-13-ventura/8457/3

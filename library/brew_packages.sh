@@ -34,7 +34,9 @@ brew install git-lfs                # Git LFS
 # Java
 brew install java
 brew install node                   # JavaScript runtime environment
+brew install node@20                # JavaScript runtime environment
 #brew install openjdk@8             # (not compatible with Apple Silicon)
+brew install pnpm                   # Package manager for JavaScript
 
 # Builders and compilers
 brew install cmake
@@ -49,6 +51,11 @@ brew install open-mpi               # Open Message Passing Interface
 brew install pv                     # Pipe Viewer
 
 ########################### File & Drive Management ###########################
+
+# Run S.M.A.R.T. reports on external drives
+# https://blog.shadypixel.com/monitoring-hard-drive-health-on-linux-with-smartmontools/
+brew install smartmontools
+
 
 ################################# Networking ##################################
 

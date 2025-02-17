@@ -27,6 +27,9 @@ brew install --cask microsoft-teams
 #TODO: brew install --cask signal
 #TODO: brew install --cask telegram
 
+# Communication apps aggregator
+brew install --cask ferdium
+
 ############################### Developer Tools ###############################
 
 # Java
