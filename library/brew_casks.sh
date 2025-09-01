@@ -50,6 +50,9 @@ brew install --cask hammerspoon             # MacOS automation with Lua
 
 # File Systems
 brew install --cask macfuse
+    # Then install ext4 support:
+    # https://www.jeffgeerling.com/blog/2024/mounting-ext4-linux-usb-drive-on-macos-2024
+    #TODO: install ext4fuse automatically
 brew install --cask mounty                          # Write to NTFS
 
 # MKV Tools
@@ -72,7 +75,7 @@ brew install --cask sdformatter
 # Disk mapping
 MAPS=$LIBRARY_PATH'/DiskMapping'
 sudo mkdir -p $MAPS
-brew install --cask --appdir=$MAPS disk-inventory-x     # https://www.derlien.com
+#brew install --cask --appdir=$MAPS disk-inventory-x    # DEPRECATED https://www.derlien.com
 brew install --cask --appdir=$MAPS omnidisksweeper      # https://www.omnigroup.com/more/
 
 ################################## Networking #################################

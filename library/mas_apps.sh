@@ -58,10 +58,7 @@ mas install 1451685025          # WireGuard
 
 ################################### Hardware ##################################
 
-
-
-
-
+mas install 446243721           # Disk Space Analyzer: Inspector
 
 
 
