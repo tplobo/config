@@ -202,6 +202,9 @@ function brew-nuke {
 ###############################################################################
 # (depends on `mas` & `trash` packages from Homebrew)
 
+# Update all apps
+alias mas-up='mas update --accurate'
+
 # Trash all apps
 function mas-nuke {
 	sudo -v
@@ -218,4 +221,26 @@ function mas-nuke {
 		sudo chown $(id -un) $APP_PATH 		# change ownership to user
 		trash $APP_PATH
 	done <<< "$(mas list)" # Feed list into loop
+}
+
+###############################################################################
+# Java                                                                        #
+###############################################################################
+
+# Change JAVA version (no argument: list all versions)
+# (based on: https://stackoverflow.com/a/30875847)
+function jhome() {
+    if [[ $# -eq 0 ]]; then
+        # No arguments provided, show available Java versions
+        echo_header 4 "Available Java versions"
+        /usr/libexec/java_home -V
+    else
+        # Change JAVA version
+        echo_header 4 "Changing to Java version $1..."
+        export JAVA_HOME=$(/usr/libexec/java_home -v $1)
+    fi
+    echo_header 4 "Current Java version"
+    echo "JAVA_HOME:" $JAVA_HOME
+    echo "java -version:"
+    java -version
 }

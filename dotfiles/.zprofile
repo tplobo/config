@@ -16,5 +16,12 @@ fi
 # Setting PATH for Python 3.10 (original saved in .zprofile.pysave)
 PATH="/Library/Frameworks/Python.framework/Versions/3.10/bin:${PATH}"
 
+# Setting PATH for MATLAB Runtime
+PATH="/Applications/MATLAB/MATLAB_Runtime/v911/runtime/maci64:\
+    /Applications/MATLAB/MATLAB_Runtime/v911/sys/os/maci64:\
+    /Applications/MATLAB/MATLAB_Runtime/v911/bin/maci64:\
+    /Applications/MATLAB/MATLAB_Runtime/v911/extern/bin/maci64:\
+    ${PATH}"
+    
 # Export PATH
 export PATH
